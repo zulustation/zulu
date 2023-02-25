@@ -1,5 +1,5 @@
 <a href="https://zulu.pm">
-  <img src="./zulu-sports-banner.gif">
+  <img src="./zulu-sports-banner.jpg">
 </a>
 
 # Zulu: An Evolving Blockchain for Prediction Markets and Futarchy

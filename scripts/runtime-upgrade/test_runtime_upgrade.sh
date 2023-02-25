@@ -10,14 +10,14 @@ ALICE_SUDO="0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d"
 
 BLOCK=$1
 ID=battery_station_runtime_upgrade_test
-PRODUCTION_IMAGE=zeitgeistpm/zeitgeist-node:latest
+PRODUCTION_IMAGE=zulustation/zulu-node:latest
 
 # Sync with live network
 #
 # Comment this whole section if `/tmp/migration` is already synced.
 
 mkdir -p /tmp/migration
-sudo docker run -d --name migration -v /tmp/migration:/zeitgeist/data $PRODUCTION_IMAGE --base-path /zeitgeist/data --chain battery_station --pruning archive
+sudo docker run -d --name migration -v /tmp/migration:/zulu/data $PRODUCTION_IMAGE --base-path /zulu/data --chain battery_station --pruning archive
 sleep 3m
 sudo docker container stop migration
 sudo docker container rm migration
@@ -26,15 +26,15 @@ sudo docker container rm migration
 
 rm -rf /tmp/migration-copy
 cp -r /tmp/migration /tmp/migration-copy
-cargo build --bin zeitgeist --release
-./target/release/zeitgeist export-state --base-path /tmp/migration-copy --chain battery_station --pruning archive $BLOCK > /tmp/test-upgrade.json
+cargo build --bin zulu --release
+./target/release/zulu export-state --base-path /tmp/migration-copy --chain battery_station --pruning archive $BLOCK > /tmp/test-upgrade.json
 
 sed -i '/"bootNodes": \[/,/\]/c\ \ "bootNodes": [],' /tmp/test-upgrade.json
 sed -i "s/\"chainType\": \"Live\"/\"chainType\": \"Local\"/" /tmp/test-upgrade.json
 sed -i "s/\"id\": \".*\"/\"id\": \"$ID\"/" /tmp/test-upgrade.json
-sed -i "s/\"name\": \".*\"/\"name\": \"Zeitgeist Battery Park Runtime Upgrade Test\"/" /tmp/test-upgrade.json
+sed -i "s/\"name\": \".*\"/\"name\": \"Zulu Battery Park Runtime Upgrade Test\"/" /tmp/test-upgrade.json
 sed -i "s/\"protocolId\": \".*\"/\"protocolId\": \"$ID\"/" /tmp/test-upgrade.json
 sed -i "s/\"$VALIDATOR_KEY\": \".*\"/\"$VALIDATOR_KEY\": \"$ALICE_VALIDATOR\"/" /tmp/test-upgrade.json
 sed -i "s/\"$SUDO_KEY\": \".*\"/\"$SUDO_KEY\": \"$ALICE_SUDO\"/" /tmp/test-upgrade.json
 
-./target/release/zeitgeist --base-path /tmp/migration-copy --chain /tmp/test-upgrade.json --alice
+./target/release/zulu --base-path /tmp/migration-copy --chain /tmp/test-upgrade.json --alice

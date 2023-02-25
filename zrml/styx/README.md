@@ -6,7 +6,7 @@ for off-chain use.
 ## Overview
 
 The pallet lets the signer burn native tokens, and lets governance update the
-price. In the zeitgeist ecosystem this grants the ability to claim the avatar of
+price. In the zulu ecosystem this grants the ability to claim the avatar of
 the signer.
 
 ## Interface
@@ -16,7 +16,7 @@ the signer.
 #### Public Dispatches
 
 - `cross` - Burns native chain tokens to cross, granting the ability to claim
-  your zeitgeist avatar.
+  your zulu avatar.
 
 #### Admin Dispatches
 

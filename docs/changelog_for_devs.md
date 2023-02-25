@@ -11,7 +11,7 @@
   protection). The authority report now includes its resolution block number.
   This is the time of the first call to `authorize_market_outcome` plus the
   `CorrectionPeriod`.
-- Create prediction markets with Ztg or registered foreign asset which has
+- Create prediction markets with Zul or registered foreign asset which has
   `allow_as_base_asset` set to `true` in `AssetRegistry` metadata. Extrinsics related
   to prediction market creation/editing now have `base_asset` parameter.
 
@@ -60,7 +60,7 @@
   - Added xTokens pallet to transfer tokens accross chains
   - Added AssetRegistry pallet to register foreign asset
   - Added UnknownTokens pallet to handle unknown foreign assets
-  - More information at https://github.com/zeitgeistpm/zeitgeist/pull/661#top
+  - More information at https://github.com/zulustation/zulu/pull/661#top
 
 - Transformed integer scalar markets to fixed point with ten digits after the
   decimal point. As soon as this update is deployed, the interpretation of the
@@ -91,7 +91,7 @@
   `oracle_duration` and `dispute_duration` fields, all of which represent
   durations in number of blocks. The `create_market` extrinsic has a new
   parameter to specify these deadlines.
-- Added `pallet-bounties` to the Zeitgeist runtime to facilitate community
+- Added `pallet-bounties` to the Zulu runtime to facilitate community
   projects.
 - Changed `MaxCategories` to `64`, as originally intended
 - Changed the `reject_market` slash percentage of the `AdvisoryBond` from 100%
@@ -121,8 +121,8 @@
   on-chain constant `MaxSwapFee`.
 
 - Added new pallet: Styx. Dispatchable calls are:
-  - `cross` - Burns native chain tokens to cross. In the case of Zeitgeist, this
-    is granting the ability to claim your zeitgeist avatar.
+  - `cross` - Burns native chain tokens to cross. In the case of Zulu, this
+    is granting the ability to claim your zulu avatar.
   - `set_burn_amount(amount)` - Sets the new burn price for the cross. Intended
     to be called by governance.
 
@@ -159,8 +159,8 @@
 - The `MarketCounter` of the `market-commons` pallet is incremented by one. This
   means that `MarketCounter` is now equal to the total number of markets ever
   created, instead of equal to the id of the last market created. For details
-  regarding this fix, see https://github.com/zeitgeistpm/zeitgeist/pull/636 and
-  https://github.com/zeitgeistpm/zeitgeist/issues/365.
+  regarding this fix, see https://github.com/zulustation/zulu/pull/636 and
+  https://github.com/zulustation/zulu/issues/365.
 
 - Made the `min_asset_amount_out` and `max_price` parameters of
   `swap_exact_amount_in` and the `max_asset_amount_in` and `max_price`
@@ -195,7 +195,7 @@
 
 - Converted `base_asset` field of `Pool<Balance, MarketId>` from
   `Option<Asset<MarketId>>` to `Asset<MarketId>`. Pools with `base_asset` equal
-  to `None` are migrated to `Asset::Ztg`.
+  to `None` are migrated to `Asset::Zul`.
 
 - Changed the following events to include a `pool_amount` field which specifies
   the amount of pool shares being minted or burned:

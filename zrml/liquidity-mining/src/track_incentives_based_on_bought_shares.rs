@@ -1,20 +1,20 @@
 // Copyright 2022 Forecasting Technologies LTD.
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 use crate::{
     utils::{calculate_perthousand, calculate_perthousand_value},
@@ -23,7 +23,7 @@ use crate::{
 use alloc::{collections::BTreeSet, vec::Vec};
 use core::marker::PhantomData;
 use sp_runtime::traits::{CheckedDiv, Saturating};
-use zeitgeist_primitives::types::MarketPeriod;
+use zulu_primitives::types::MarketPeriod;
 use zrml_market_commons::MarketCommonsPalletApi;
 
 // Per-thousand that every incentive should transfer to the perpetual balance.
@@ -74,8 +74,8 @@ where
         Some(market_incentives_len)
     }
 
-    // ZTG value of one bought share for the current block being produced. Or in other words:
-    // Determines how much a share will be worth given the amount of ZTG for liquidity
+    // ZUL value of one bought share for the current block being produced. Or in other words:
+    // Determines how much a share will be worth given the amount of ZUL for liquidity
     // mining and the total number of bought shares for the current block.
     //
     // `None` result means no-one purchased a share.

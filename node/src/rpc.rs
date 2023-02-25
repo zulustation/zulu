@@ -1,20 +1,20 @@
 // Copyright 2022 Forecasting Technologies LTD.
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 //! A collection of node-specific RPC methods.
 //! Substrate provides the `sc-rpc` crate, which defines the core RPC layer
@@ -29,7 +29,7 @@ use sp_api::ProvideRuntimeApi;
 use sp_block_builder::BlockBuilder;
 use sp_blockchain::{Error as BlockChainError, HeaderBackend, HeaderMetadata};
 use std::sync::Arc;
-use zeitgeist_primitives::types::{AccountId, Balance, Block, Index as Nonce, MarketId, PoolId};
+use zulu_primitives::types::{AccountId, Balance, Block, Index as Nonce, MarketId, PoolId};
 
 /// Full client dependencies.
 pub struct FullDeps<C, P> {

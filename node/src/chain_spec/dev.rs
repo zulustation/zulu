@@ -1,20 +1,20 @@
 // Copyright 2022-2023 Forecasting Technologies LTD.
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 #![cfg(feature = "with-battery-station-runtime")]
 
@@ -30,16 +30,16 @@ use battery_station_runtime::{
 };
 use sc_service::ChainType;
 use sp_core::sr25519;
-use zeitgeist_primitives::{
-    constants::ztg::{LIQUIDITY_MINING, LIQUIDITY_MINING_PTD},
+use zulu_primitives::{
+    constants::zul::{LIQUIDITY_MINING, LIQUIDITY_MINING_PTD},
     types::Balance,
 };
 #[cfg(feature = "parachain")]
 use {
     super::battery_station::inflation_config,
     sp_runtime::Perbill,
-    zeitgeist_primitives::constants::ztg::STAKING_PTD,
-    zeitgeist_primitives::constants::{ztg::TOTAL_INITIAL_ZTG, BASE},
+    zulu_primitives::constants::zul::STAKING_PTD,
+    zulu_primitives::constants::{zul::TOTAL_INITIAL_ZUL, BASE},
 };
 
 const INITIAL_BALANCE: Balance = Balance::MAX >> 4;
@@ -86,7 +86,7 @@ pub fn dev_config() -> Result<BatteryStationChainSpec, String> {
                         STAKING_PTD * Perbill::from_percent(40),
                         STAKING_PTD * Perbill::from_percent(70),
                         STAKING_PTD,
-                        TOTAL_INITIAL_ZTG * BASE,
+                        TOTAL_INITIAL_ZUL * BASE,
                     ),
                     nominations: vec![],
                     parachain_bond_reserve_percent: DefaultParachainBondReservePercent::get(),

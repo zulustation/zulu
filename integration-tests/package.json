@@ -1,5 +1,5 @@
 {
-  "author": "Zeitgeist PM <contact@zeitgeist.pm>",
+  "author": "Zulu PM <contact@zulu.pm>",
   "dependencies": {
     "typescript": "^3.9.6"
   },
@@ -8,14 +8,14 @@
     "@polkadot/types": "^4.12.1",
     "@types/chai": "^4.2.11",
     "@types/mocha": "^8.2.2",
-    "@zeitgeistpm/sdk": "^0.2.1",
+    "@zulustation/sdk": "^0.2.1",
     "chai": "^4.3.4",
     "mocha": "^8.3.2",
     "ts-node": "9.1"
   },
   "description": "Integration tests",
   "license": "GPL-3.0",
-  "repository": "https://github.com/zeitgeistpm/zeitgeist",
+  "repository": "https://github.com/zulustation/zulu",
   "main": "index.js",
   "name": "integration-tests",
   "scripts": {

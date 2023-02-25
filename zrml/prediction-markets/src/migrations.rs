@@ -1,20 +1,20 @@
 // Copyright 2022-2023 Forecasting Technologies LTD.
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 #[cfg(feature = "try-runtime")]
 use crate::MarketIdOf;
@@ -38,7 +38,7 @@ use frame_support::{
 use parity_scale_codec::{Decode, Encode};
 use scale_info::TypeInfo;
 use sp_runtime::traits::Saturating;
-use zeitgeist_primitives::types::{
+use zulu_primitives::types::{
     Asset, Bond, Deadlines, Market, MarketBonds, MarketCreation, MarketDisputeMechanism,
     MarketPeriod, MarketStatus, MarketType, OutcomeReport, Report, ScoringRule,
 };
@@ -272,7 +272,7 @@ mod tests {
     }
 
     fn construct_old_new_tuple() -> (Vec<OldMarketOf<Runtime>>, Vec<MarketOf<Runtime>>) {
-        let base_asset = Asset::Ztg;
+        let base_asset = Asset::Zul;
         let creator = 999;
         let creator_fee = 1;
         let oracle = 2;
@@ -363,7 +363,7 @@ mod utility {
         Blake2_128Concat, StorageHasher,
     };
     use parity_scale_codec::Encode;
-    use zeitgeist_primitives::types::{Pool, PoolId};
+    use zulu_primitives::types::{Pool, PoolId};
 
     #[allow(unused)]
     const SWAPS: &[u8] = b"Swaps";

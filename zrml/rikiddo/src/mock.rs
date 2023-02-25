@@ -1,19 +1,19 @@
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 #![allow(
     // Mocks are only used for fuzzing and unit tests
@@ -30,7 +30,7 @@ use sp_runtime::{
     traits::{BlakeTwo256, IdentityLookup},
 };
 use substrate_fixed::{types::extra::U33, FixedI128, FixedU128};
-use zeitgeist_primitives::{
+use zulu_primitives::{
     constants::mock::{BlockHashCount, ExistentialDeposit, MaxReserves, BASE},
     types::{
         AccountIdTest, Balance, BlockNumber, BlockTest, Hash, Index, Moment, PoolId,

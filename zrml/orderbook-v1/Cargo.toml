@@ -1,18 +1,18 @@
 
 [dependencies]
-frame-benchmarking = { branch = "moonbeam-polkadot-v0.9.29", default-features = false, optional = true, git = "https://github.com/zeitgeistpm/substrate" }
-frame-support = { branch = "moonbeam-polkadot-v0.9.29", default-features = false, git = "https://github.com/zeitgeistpm/substrate" }
-frame-system = { branch = "moonbeam-polkadot-v0.9.29", default-features = false, git = "https://github.com/zeitgeistpm/substrate" }
-orml-traits = { branch = "moonbeam-polkadot-v0.9.29", default-features = false, git = "https://github.com/zeitgeistpm/open-runtime-module-library" }
+frame-benchmarking = { branch = "moonbeam-polkadot-v0.9.29", default-features = false, optional = true, git = "https://github.com/zulustation/substrate" }
+frame-support = { branch = "moonbeam-polkadot-v0.9.29", default-features = false, git = "https://github.com/zulustation/substrate" }
+frame-system = { branch = "moonbeam-polkadot-v0.9.29", default-features = false, git = "https://github.com/zulustation/substrate" }
+orml-traits = { branch = "moonbeam-polkadot-v0.9.29", default-features = false, git = "https://github.com/zulustation/open-runtime-module-library" }
 parity-scale-codec = { default-features = false, features = ["derive", "max-encoded-len"], version = "3.0.0" }
 scale-info = { version = "2.1.1", default-features = false, features = ["derive"] }
-sp-runtime = { branch = "moonbeam-polkadot-v0.9.29", default-features = false, git = "https://github.com/zeitgeistpm/substrate" }
-zeitgeist-primitives = { default-features = false, path = "../../primitives" }
+sp-runtime = { branch = "moonbeam-polkadot-v0.9.29", default-features = false, git = "https://github.com/zulustation/substrate" }
+zulu-primitives = { default-features = false, path = "../../primitives" }
 
 # Mock
-orml-tokens = { branch = "moonbeam-polkadot-v0.9.29", git = "https://github.com/zeitgeistpm/open-runtime-module-library", optional = true }
-pallet-balances = { branch = "moonbeam-polkadot-v0.9.29", git = "https://github.com/zeitgeistpm/substrate", optional = true }
-sp-io = { branch = "moonbeam-polkadot-v0.9.29", git = "https://github.com/zeitgeistpm/substrate", optional = true }
+orml-tokens = { branch = "moonbeam-polkadot-v0.9.29", git = "https://github.com/zulustation/open-runtime-module-library", optional = true }
+pallet-balances = { branch = "moonbeam-polkadot-v0.9.29", git = "https://github.com/zulustation/substrate", optional = true }
+sp-io = { branch = "moonbeam-polkadot-v0.9.29", git = "https://github.com/zulustation/substrate", optional = true }
 
 [dev-dependencies]
 zrml-orderbook-v1 = { features = ["mock"], path = "." }
@@ -23,7 +23,7 @@ mock = [
     "orml-tokens",
     "pallet-balances",
     "sp-io",
-    "zeitgeist-primitives/mock",
+    "zulu-primitives/mock",
 ]
 runtime-benchmarks = [
     "frame-benchmarking/runtime-benchmarks",
@@ -37,14 +37,14 @@ std = [
     "orml-traits/std",
     "parity-scale-codec/std",
     "sp-runtime/std",
-    "zeitgeist-primitives/std",
+    "zulu-primitives/std",
 ]
 try-runtime = [
     "frame-support/try-runtime",
 ]
 
 [package]
-authors = ["Zeitgeist PM <contact@zeitgeist.pm>"]
+authors = ["Zulu PM <contact@zulu.pm>"]
 edition = "2021"
 name = "zrml-orderbook-v1"
 version = "0.3.8"

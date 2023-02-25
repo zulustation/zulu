@@ -1,12 +1,12 @@
 {
-  "name": "Zeitgeist",
-  "id": "zeitgeist",
+  "name": "Zulu",
+  "id": "zulu",
   "chainType": "Live",
   "bootNodes": [
-    "/dns/bootnode-0.zeitgeist.pm/tcp/30333/p2p/12D3KooWNpDxYCicWvNrR18QvkkAgVvBdsbh2woHfUGmKijj59aR",
-    "/dns/bootnode-0.zeitgeist.pm/tcp/30333/ws/p2p/12D3KooWNpDxYCicWvNrR18QvkkAgVvBdsbh2woHfUGmKijj59aR",
-    "/dns/bootnode-1.zeitgeist.pm/tcp/30333/p2p/12D3KooWGLidEdRqggqcndA3Nsf6KcL3HbW7BdSGww6QNDkNnYV7",
-    "/dns/bootnode-1.zeitgeist.pm/tcp/30333/ws/p2p/12D3KooWGLidEdRqggqcndA3Nsf6KcL3HbW7BdSGww6QNDkNnYV7"
+    "/dns/bootnode-0.zulu.pm/tcp/30333/p2p/12D3KooWNpDxYCicWvNrR18QvkkAgVvBdsbh2woHfUGmKijj59aR",
+    "/dns/bootnode-0.zulu.pm/tcp/30333/ws/p2p/12D3KooWNpDxYCicWvNrR18QvkkAgVvBdsbh2woHfUGmKijj59aR",
+    "/dns/bootnode-1.zulu.pm/tcp/30333/p2p/12D3KooWGLidEdRqggqcndA3Nsf6KcL3HbW7BdSGww6QNDkNnYV7",
+    "/dns/bootnode-1.zulu.pm/tcp/30333/ws/p2p/12D3KooWGLidEdRqggqcndA3Nsf6KcL3HbW7BdSGww6QNDkNnYV7"
   ],
   "telemetryEndpoints": [
     [
@@ -14,15 +14,15 @@
       0
     ],
     [
-      "/dns/telemetry.zeitgeist.pm/tcp/443/x-parity-wss/%2Fsubmit%2F",
+      "/dns/telemetry.zulu.pm/tcp/443/x-parity-wss/%2Fsubmit%2F",
       0
     ]
   ],
-  "protocolId": "zeitgeist",
+  "protocolId": "zulu",
   "properties": {
     "ss58Format": 73,
     "tokenDecimals": 10,
-    "tokenSymbol": "ZTG"
+    "tokenSymbol": "ZUL"
   },
   "parachain_id": 2101,
   "relay_chain": "kusama",

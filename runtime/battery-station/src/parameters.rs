@@ -1,20 +1,20 @@
 // Copyright 2022-2023 Forecasting Technologies LTD.
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 #![allow(
     // Constants parameters inside `parameter_types!` already check
@@ -39,7 +39,7 @@ use sp_runtime::{
     FixedPointNumber, Perbill, Percent, Permill, Perquintill,
 };
 use sp_version::RuntimeVersion;
-use zeitgeist_primitives::{constants::*, types::*};
+use zulu_primitives::{constants::*, types::*};
 
 #[cfg(feature = "with-global-disputes")]
 use frame_support::traits::LockIdentifier;
@@ -143,7 +143,7 @@ parameter_types! {
     pub const DepositFactor: Balance = deposit(0, 32);
 
     // ORML
-    pub const GetNativeCurrencyId: CurrencyId = Asset::Ztg;
+    pub const GetNativeCurrencyId: CurrencyId = Asset::Zul;
     pub DustAccount: AccountId = PalletId(*b"orml/dst").into_account_truncating();
 
     // Prediction Market parameters
@@ -315,7 +315,7 @@ parameter_types! {
     /// Pallet identifier, mainly used for named balance reserves.
     pub const TreasuryPalletId: PalletId = TREASURY_PALLET_ID;
     /// Treasury account.
-    pub ZeitgeistTreasuryAccount: AccountId = TreasuryPalletId::get().into_account_truncating();
+    pub ZuluTreasuryAccount: AccountId = TreasuryPalletId::get().into_account_truncating();
 
     // Timestamp
     /// MinimumPeriod for Timestamp
@@ -377,7 +377,7 @@ parameter_types! {
 
 parameter_type_with_key! {
     // Existential deposits used by orml-tokens.
-    // Only native ZTG and foreign assets should have an existential deposit.
+    // Only native ZUL and foreign assets should have an existential deposit.
     // Winning outcome tokens are redeemed completely by the user, losing outcome tokens
     // are cleaned up automatically. In case of scalar outcomes, the market account can have dust.
     // Unless LPs use `pool_exit_with_exact_asset_amount`, there can be some dust pool shares remaining.
@@ -402,7 +402,7 @@ parameter_type_with_key! {
             }
             #[cfg(not(feature = "parachain"))]
             Asset::ForeignAsset(_) => ExistentialDeposit::get(),
-            Asset::Ztg => ExistentialDeposit::get(),
+            Asset::Zul => ExistentialDeposit::get(),
         }
     };
 }

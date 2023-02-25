@@ -46,8 +46,8 @@ jobs:
       - name: Test runtime-benchmarks
         run: cargo test --release --features runtime-benchmarks
 
-      - name: Build Zeitgeist chain with runtime-benchmarks feature
-        run: cargo build --release --features runtime-benchmarks --bin zeitgeist
+      - name: Build Zulu chain with runtime-benchmarks feature
+        run: cargo build --release --features runtime-benchmarks --bin zulu
 
       - name: Run benchmarks
         id: run_benchmarks
@@ -110,12 +110,12 @@ jobs:
 
           # Execute benchmark. Note: It's not possible to use a matrix here in
           # combination with GitHub AE hosted runner (one instance per job)
-          for pallet in "${ZEITGEIST_PALLETS[@]}"; do
+          for pallet in "${ZULU_PALLETS[@]}"; do
             # Execute benchmark
             pallet_folder_name=${pallet//zrml_/}
             pallet_folder_name=${pallet_folder_name//_/-}
-            command="./target/release/zeitgeist benchmark --chain=dev "
-            command+="--steps=$ZEITGEIST_PALLETS_STEPS --repeat=$ZEITGEIST_PALLETS_RUNS "
+            command="./target/release/zulu benchmark --chain=dev "
+            command+="--steps=$ZULU_PALLETS_STEPS --repeat=$ZULU_PALLETS_RUNS "
             command+="--pallet=$pallet --extrinsic=* --execution=wasm --wasm-execution=compiled "
             command+="--heap-pages=4096 --template=./misc/weight_template.hbs "
             command+="--output=./zrml/$pallet_folder_name/src/weights.rs"
@@ -152,8 +152,8 @@ jobs:
           commit_message: Update weights
           commit_options: '--no-verify'
           file_pattern: zrml/*/src/weights.rs
-          commit_user_name: Zeitgeist Benchmark Bot
-          commit_user_email: zeitgeist-benchmark-bot@no-reply.zeitgeist.pm
+          commit_user_name: Zulu Benchmark Bot
+          commit_user_email: zulu-benchmark-bot@no-reply.zulu.pm
           status_options: '--untracked-files=no'
 
       - name: Remove label s:benchmark-required

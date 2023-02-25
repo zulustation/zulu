@@ -21,7 +21,7 @@ jobs:
           flavor: |
             latest=true
           images: |
-            zeitgeistpm/zeitgeist-node-parachain
+            zulustation/zulu-node-parachain
           tags: |
             type=semver,pattern={{version}}
 

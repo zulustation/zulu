@@ -1,20 +1,20 @@
 // Copyright 2023 Forecasting Technologies LTD.
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 #![allow(clippy::type_complexity)]
 use alloc::vec::Vec;
@@ -23,7 +23,7 @@ use orml_traits::currency::NamedMultiReservableCurrency;
 use sp_runtime::{traits::Get, DispatchError};
 
 /// Custom `NamedMultiReservableCurrency` trait.
-pub trait ZeitgeistAssetManager<AccountId>: NamedMultiReservableCurrency<AccountId> {
+pub trait ZuluAssetManager<AccountId>: NamedMultiReservableCurrency<AccountId> {
     /// Return the total number of accounts that hold _any_ asset (first value) and all accounts
     /// that hold assets of a given `currency_id` (second value).
     /// If the `currency_id` is the native currency, then return None.
@@ -38,7 +38,7 @@ pub trait ZeitgeistAssetManager<AccountId>: NamedMultiReservableCurrency<Account
         I: Iterator<Item = (AccountId, AccountData<Self::Balance>)>;
 }
 
-impl<T> ZeitgeistAssetManager<T::AccountId> for orml_tokens::Pallet<T>
+impl<T> ZuluAssetManager<T::AccountId> for orml_tokens::Pallet<T>
 where
     T: orml_tokens::Config,
 {
@@ -73,10 +73,10 @@ where
 
 // This implementation will only affect the `MultiCurrency` part, i.e., it won't touch
 // the native currency
-impl<T> ZeitgeistAssetManager<T::AccountId> for orml_currencies::Pallet<T>
+impl<T> ZuluAssetManager<T::AccountId> for orml_currencies::Pallet<T>
 where
     T: orml_currencies::Config,
-    T::MultiCurrency: ZeitgeistAssetManager<T::AccountId>,
+    T::MultiCurrency: ZuluAssetManager<T::AccountId>,
 {
     fn accounts_by_currency_id(
         currency_id: Self::CurrencyId,

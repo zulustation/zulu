@@ -8,7 +8,7 @@ assignees: ''
 
 # Release Checklist
 
-This is the release checklist for Zeitgeist {{ env.VERSION }}. All following checks should be completed before publishing a new release of the Zeitgeist runtime or client.
+This is the release checklist for Zulu {{ env.VERSION }}. All following checks should be completed before publishing a new release of the Zulu runtime or client.
 
 ## Runtime Releases
 
@@ -26,11 +26,11 @@ The following checks can be performed after we have forked off to the release-ca
 - [ ] Verify the SDK is up-to-date with the latest changes.
 - [ ] Push runtime upgrade to local clone of Battery Station and ensure the upgrade is executed without errors.
 - [ ] Push runtime upgrade to Battery Station and ensure network stability for 24 hours.
-- [ ] Push runtime upgrade to Zeitgeist mainnet.
+- [ ] Push runtime upgrade to Zulu mainnet.
 
 ## All Releases
 - [ ] Check that the new client versions have run on the network without issue for 12 hours.
-- [ ] Check that a draft release has been created at https://github.com/zeitgeistpm/zeitgeist/releases with relevant release
+- [ ] Check that a draft release has been created at https://github.com/zulustation/zulu/releases with relevant release
 notes.
 - [ ] Check that build artifacts have been added to the draft-release
 
@@ -81,9 +81,9 @@ of a breaking change, increase `transaction_version`.
 
 To verify the order has not changed:
 
-1. Build the Zeitgeist client from source: `git clone https://github.com/zeitgeistpm/zeitgeist.git zeitgeist-release && pushd zeitgeist-release > /dev/null && cargo build --features=parachain`
-2. Run the release-candidate binary using a local chain: `./target/debug/zeitgeist --chain=battery_station --tmp`
-3. Use [`polkadot-js-tools`](https://github.com/polkadot-js/tools) to compare the metadata: `docker run --network host jacogr/polkadot-js-tools metadata wss://bsr.zeitgeist.pm ws://localhost:9944`
+1. Build the Zulu client from source: `git clone https://github.com/zulustation/zulu.git zulu-release && pushd zulu-release > /dev/null && cargo build --features=parachain`
+2. Run the release-candidate binary using a local chain: `./target/debug/zulu --chain=battery_station --tmp`
+3. Use [`polkadot-js-tools`](https://github.com/polkadot-js/tools) to compare the metadata: `docker run --network host jacogr/polkadot-js-tools metadata wss://bsr.zulu.pm ws://localhost:9944`
 
 4. Things to look for in the output are lines like:
   - `[Identity] idx 28 -> 25 (calls 15)` - indicates the index for `Identity` has changed

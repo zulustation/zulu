@@ -4,7 +4,7 @@
 
 Manages and distributes incentives to liquidity providers
 
-Each block has a maximum allowed amount of ZTG that is distributed among the
+Each block has a maximum allowed amount of ZUL that is distributed among the
 `PoolShare` owners of that same block. Over time this amount will increase until
 a market closes and then all rewards will be distributed accordingly.
 

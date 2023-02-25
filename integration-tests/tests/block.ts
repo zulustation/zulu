@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import SDK from "@zeitgeistpm/sdk";
+import SDK from "@zulustation/sdk";
 
 describe('Blocks', function() {
     it('block number should not be zero', async function(done) {

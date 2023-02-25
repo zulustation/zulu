@@ -1,20 +1,20 @@
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 // Copyright 2017-2020 Parity Technologies (UK) Ltd.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 #[cfg(feature = "parachain")]
 mod cli_parachain;
@@ -37,19 +37,19 @@ use sp_runtime::{
 };
 use sp_storage::{ChildInfo, StorageData, StorageKey};
 use std::sync::Arc;
-pub use zeitgeist_primitives::types::{AccountId, Balance, BlockNumber, Hash, Index};
-use zeitgeist_primitives::types::{Block, Header};
+pub use zulu_primitives::types::{AccountId, Balance, BlockNumber, Hash, Index};
+use zulu_primitives::types::{Block, Header};
 #[cfg(feature = "with-battery-station-runtime")]
 use {
     super::service::BatteryStationExecutor,
     battery_station_runtime::RuntimeApi as BatteryStationRuntimeApi,
 };
-#[cfg(feature = "with-zeitgeist-runtime")]
-use {super::service::ZeitgeistExecutor, zeitgeist_runtime::RuntimeApi as ZeitgeistRuntimeApi};
+#[cfg(feature = "with-zulu-runtime")]
+use {super::service::ZuluExecutor, zulu_runtime::RuntimeApi as ZuluRuntimeApi};
 
 const COPYRIGHT_START_YEAR: i32 = 2021;
-const IMPL_NAME: &str = "Zeitgeist Node";
-const SUPPORT_URL: &str = "https://github.com/zeitgeistpm/zeitgeist/issues";
+const IMPL_NAME: &str = "Zulu Node";
+const SUPPORT_URL: &str = "https://github.com/zulustation/zulu/issues";
 
 #[cfg(feature = "parachain")]
 type RunCmd = cumulus_client_cli::RunCmd;
@@ -70,31 +70,31 @@ pub fn load_spec(id: &str) -> Result<Box<dyn sc_service::ChainSpec>, String> {
         "battery_station_staging" => Box::new(crate::chain_spec::battery_station_staging_config()?),
         #[cfg(not(feature = "with-battery-station-runtime"))]
         "battery_station_staging" => panic!("{}", crate::BATTERY_STATION_RUNTIME_NOT_AVAILABLE),
-        "zeitgeist" => Box::new(crate::chain_spec::DummyChainSpec::from_json_bytes(
+        "zulu" => Box::new(crate::chain_spec::DummyChainSpec::from_json_bytes(
             #[cfg(feature = "parachain")]
-            &include_bytes!("../res/zeitgeist_parachain.json")[..],
+            &include_bytes!("../res/zulu_parachain.json")[..],
             #[cfg(not(feature = "parachain"))]
-            &include_bytes!("../res/zeitgeist.json")[..],
+            &include_bytes!("../res/zulu.json")[..],
         )?),
-        #[cfg(feature = "with-zeitgeist-runtime")]
-        "zeitgeist_staging" => Box::new(crate::chain_spec::zeitgeist_staging_config()?),
-        #[cfg(not(feature = "with-zeitgeist-runtime"))]
-        "zeitgeist_staging" => panic!("{}", crate::ZEITGEIST_RUNTIME_NOT_AVAILABLE),
+        #[cfg(feature = "with-zulu-runtime")]
+        "zulu_staging" => Box::new(crate::chain_spec::zulu_staging_config()?),
+        #[cfg(not(feature = "with-zulu-runtime"))]
+        "zulu_staging" => panic!("{}", crate::ZULU_RUNTIME_NOT_AVAILABLE),
         path => {
             let spec = Box::new(crate::chain_spec::DummyChainSpec::from_json_file(
                 std::path::PathBuf::from(path),
             )?) as Box<dyn ChainSpec>;
 
             match spec {
-                spec if spec.is_zeitgeist() => {
-                    #[cfg(feature = "with-zeitgeist-runtime")]
+                spec if spec.is_zulu() => {
+                    #[cfg(feature = "with-zulu-runtime")]
                     return Ok(Box::new(
-                        crate::chain_spec::zeitgeist::ZeitgeistChainSpec::from_json_file(
+                        crate::chain_spec::zulu::ZuluChainSpec::from_json_file(
                             std::path::PathBuf::from(path),
                         )?,
                     ));
-                    #[cfg(not(feature = "with-zeitgeist-runtime"))]
-                    panic!("{}", crate::ZEITGEIST_RUNTIME_NOT_AVAILABLE);
+                    #[cfg(not(feature = "with-zulu-runtime"))]
+                    panic!("{}", crate::ZULU_RUNTIME_NOT_AVAILABLE);
                 }
                 _ => {
                     #[cfg(feature = "with-battery-station-runtime")]
@@ -234,11 +234,11 @@ impl SubstrateCli for Cli {
 
     fn native_runtime_version(spec: &Box<dyn ChainSpec>) -> &'static RuntimeVersion {
         match spec {
-            spec if spec.is_zeitgeist() => {
-                #[cfg(feature = "with-zeitgeist-runtime")]
-                return &zeitgeist_runtime::VERSION;
-                #[cfg(not(feature = "with-zeitgeist-runtime"))]
-                panic!("{}", crate::ZEITGEIST_RUNTIME_NOT_AVAILABLE);
+            spec if spec.is_zulu() => {
+                #[cfg(feature = "with-zulu-runtime")]
+                return &zulu_runtime::VERSION;
+                #[cfg(not(feature = "with-zulu-runtime"))]
+                panic!("{}", crate::ZULU_RUNTIME_NOT_AVAILABLE);
             }
             _spec => {
                 #[cfg(feature = "with-battery-station-runtime")]
@@ -293,7 +293,7 @@ where
 
 /// Execute something with the client instance.
 ///
-/// As there exist multiple chains inside Zeitgeist, like Zeitgeist itself,
+/// As there exist multiple chains inside Zulu, like Zulu itself,
 /// Battery Station etc., there can exist different kinds of client types. As these
 /// client types differ in the generics that are being used, we can not easily
 /// return them from a function. For returning them from a function there exists
@@ -319,9 +319,9 @@ pub trait ExecuteWithClient {
         Client: AbstractClient<Block, Backend, Api = Api> + 'static;
 }
 
-/// A handle to a Zeitgeist client instance.
+/// A handle to a Zulu client instance.
 ///
-/// The Zeitgeist service supports multiple different runtimes (Zeitgeist, Battery
+/// The Zulu service supports multiple different runtimes (Zulu, Battery
 /// Station, etc.). As each runtime has a specialized client, we need to hide them
 /// behind a trait. This is this trait.
 ///
@@ -331,13 +331,13 @@ pub trait ClientHandle {
     fn execute_with<T: ExecuteWithClient>(&self, t: T) -> T::Output;
 }
 
-/// A client instance of Zeitgeist.
+/// A client instance of Zulu.
 #[derive(Clone)]
 pub enum Client {
     #[cfg(feature = "with-battery-station-runtime")]
     BatteryStation(Arc<FullClient<BatteryStationRuntimeApi, BatteryStationExecutor>>),
-    #[cfg(feature = "with-zeitgeist-runtime")]
-    Zeitgeist(Arc<FullClient<ZeitgeistRuntimeApi, ZeitgeistExecutor>>),
+    #[cfg(feature = "with-zulu-runtime")]
+    Zulu(Arc<FullClient<ZuluRuntimeApi, ZuluExecutor>>),
 }
 
 #[cfg(feature = "with-battery-station-runtime")]
@@ -347,10 +347,10 @@ impl From<Arc<FullClient<BatteryStationRuntimeApi, BatteryStationExecutor>>> for
     }
 }
 
-#[cfg(feature = "with-zeitgeist-runtime")]
-impl From<Arc<FullClient<ZeitgeistRuntimeApi, ZeitgeistExecutor>>> for Client {
-    fn from(client: Arc<FullClient<ZeitgeistRuntimeApi, ZeitgeistExecutor>>) -> Self {
-        Self::Zeitgeist(client)
+#[cfg(feature = "with-zulu-runtime")]
+impl From<Arc<FullClient<ZuluRuntimeApi, ZuluExecutor>>> for Client {
+    fn from(client: Arc<FullClient<ZuluRuntimeApi, ZuluExecutor>>) -> Self {
+        Self::Zulu(client)
     }
 }
 
@@ -361,8 +361,8 @@ impl ClientHandle for Client {
             Self::BatteryStation(client) => {
                 T::execute_with_client::<_, _, FullBackend>(t, client.clone())
             }
-            #[cfg(feature = "with-zeitgeist-runtime")]
-            Self::Zeitgeist(client) => {
+            #[cfg(feature = "with-zulu-runtime")]
+            Self::Zulu(client) => {
                 T::execute_with_client::<_, _, FullBackend>(t, client.clone())
             }
         }
@@ -374,8 +374,8 @@ macro_rules! match_client {
         match $self {
             #[cfg(feature = "with-battery-station-runtime")]
             Self::BatteryStation(client) => client.$method($($param),*),
-            #[cfg(feature = "with-zeitgeist-runtime")]
-            Self::Zeitgeist(client) => client.$method($($param),*),
+            #[cfg(feature = "with-zulu-runtime")]
+            Self::Zulu(client) => client.$method($($param),*),
         }
     };
 }

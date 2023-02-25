@@ -1,20 +1,20 @@
 // Copyright 2022-2023 Forecasting Technologies LTD.
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 //
 // This file incorporates work covered by the license above but
 // published without copyright notice by Balancer Labs
@@ -85,9 +85,9 @@ mod pallet {
         },
         FixedI128, FixedI32, FixedU128, FixedU32,
     };
-    use zeitgeist_primitives::{
+    use zulu_primitives::{
         constants::{BASE, CENT},
-        traits::{Swaps, ZeitgeistAssetManager},
+        traits::{Swaps, ZuluAssetManager},
         types::{
             Asset, MarketType, OutcomeReport, Pool, PoolId, PoolStatus, ResultWithWeightInfo,
             ScoringRule, SerdeWrapper,
@@ -857,13 +857,13 @@ mod pallet {
         >;
 
         /// Shares of outcome assets and native currency
-        type AssetManager: ZeitgeistAssetManager<
+        type AssetManager: ZuluAssetManager<
             Self::AccountId,
             CurrencyId = Asset<MarketIdOf<Self>>,
         >;
 
         /// The weight information for swap's dispatchable functions.
-        type WeightInfo: WeightInfoZeitgeist;
+        type WeightInfo: WeightInfoZulu;
     }
 
     #[pallet::error]

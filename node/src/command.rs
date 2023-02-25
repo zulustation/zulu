@@ -1,20 +1,20 @@
 // Copyright 2022-2023 Forecasting Technologies LTD.
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 use super::{
     benchmarking::{inherent_benchmark_data, RemarksExtrinsicBuilder, TransferKeepAliveBuilder},
@@ -31,10 +31,10 @@ use {
         ExistentialDeposit as BatteryStationED, RuntimeApi as BatteryStationRuntimeApi,
     },
 };
-#[cfg(feature = "with-zeitgeist-runtime")]
+#[cfg(feature = "with-zulu-runtime")]
 use {
-    super::service::ZeitgeistExecutor,
-    zeitgeist_runtime::{ExistentialDeposit as ZeitgeistED, RuntimeApi as ZeitgeistRuntimeApi},
+    super::service::ZuluExecutor,
+    zulu_runtime::{ExistentialDeposit as ZuluED, RuntimeApi as ZuluRuntimeApi},
 };
 #[cfg(feature = "parachain")]
 use {
@@ -48,10 +48,10 @@ use {
 pub fn run() -> sc_cli::Result<()> {
     let mut cli = <Cli as SubstrateCli>::from_args();
 
-    // Set default chain on parachain to zeitgeist and on standalone to dev
+    // Set default chain on parachain to zulu and on standalone to dev
     #[cfg(feature = "parachain")]
     if cli.run.base.shared_params.chain.is_none() {
-        cli.run.base.shared_params.chain = Some("zeitgeist".to_string());
+        cli.run.base.shared_params.chain = Some("zulu".to_string());
     }
     #[cfg(not(feature = "parachain"))]
     if cli.run.shared_params.chain.is_none() {
@@ -74,9 +74,9 @@ pub fn run() -> sc_cli::Result<()> {
                     }
 
                     match chain_spec {
-                        #[cfg(feature = "with-zeitgeist-runtime")]
-                        spec if spec.is_zeitgeist() => runner.sync_run(|config| {
-                            cmd.run::<zeitgeist_runtime::Block, ZeitgeistExecutor>(config)
+                        #[cfg(feature = "with-zulu-runtime")]
+                        spec if spec.is_zulu() => runner.sync_run(|config| {
+                            cmd.run::<zulu_runtime::Block, ZuluExecutor>(config)
                         }),
                         #[cfg(feature = "with-battery-station-runtime")]
                         _ => runner.sync_run(|config| {
@@ -89,11 +89,11 @@ pub fn run() -> sc_cli::Result<()> {
                     }
                 }
                 BenchmarkCmd::Block(cmd) => match chain_spec {
-                    #[cfg(feature = "with-zeitgeist-runtime")]
-                    spec if spec.is_zeitgeist() => runner.sync_run(|config| {
+                    #[cfg(feature = "with-zulu-runtime")]
+                    spec if spec.is_zulu() => runner.sync_run(|config| {
                         let params = crate::service::new_partial::<
-                            zeitgeist_runtime::RuntimeApi,
-                            ZeitgeistExecutor,
+                            zulu_runtime::RuntimeApi,
+                            ZuluExecutor,
                         >(&config)?;
                         cmd.run(params.client)
                     }),
@@ -116,11 +116,11 @@ pub fn run() -> sc_cli::Result<()> {
                     runner.sync_run(|config| cmd.run(&config, SUBSTRATE_REFERENCE_HARDWARE.clone()))
                 }
                 BenchmarkCmd::Storage(cmd) => match chain_spec {
-                    #[cfg(feature = "with-zeitgeist-runtime")]
-                    spec if spec.is_zeitgeist() => runner.sync_run(|config| {
+                    #[cfg(feature = "with-zulu-runtime")]
+                    spec if spec.is_zulu() => runner.sync_run(|config| {
                         let params = crate::service::new_partial::<
-                            zeitgeist_runtime::RuntimeApi,
-                            ZeitgeistExecutor,
+                            zulu_runtime::RuntimeApi,
+                            ZuluExecutor,
                         >(&config)?;
 
                         let db = params.backend.expose_db();
@@ -149,11 +149,11 @@ pub fn run() -> sc_cli::Result<()> {
                         return Err("Overhead is only supported in standalone chain".into());
                     }
                     match chain_spec {
-                        #[cfg(feature = "with-zeitgeist-runtime")]
-                        spec if spec.is_zeitgeist() => runner.sync_run(|config| {
+                        #[cfg(feature = "with-zulu-runtime")]
+                        spec if spec.is_zulu() => runner.sync_run(|config| {
                             let params = crate::service::new_partial::<
-                                zeitgeist_runtime::RuntimeApi,
-                                ZeitgeistExecutor,
+                                zulu_runtime::RuntimeApi,
+                                ZuluExecutor,
                             >(&config)?;
 
                             let ext_builder =
@@ -193,11 +193,11 @@ pub fn run() -> sc_cli::Result<()> {
                         return Err("Extrinsic is only supported in standalone chain".into());
                     }
                     match chain_spec {
-                        #[cfg(feature = "with-zeitgeist-runtime")]
-                        spec if spec.is_zeitgeist() => runner.sync_run(|config| {
+                        #[cfg(feature = "with-zulu-runtime")]
+                        spec if spec.is_zulu() => runner.sync_run(|config| {
                             let params = crate::service::new_partial::<
-                                zeitgeist_runtime::RuntimeApi,
-                                ZeitgeistExecutor,
+                                zulu_runtime::RuntimeApi,
+                                ZuluExecutor,
                             >(&config)?;
                             // Register the *Remark* and *TKA* builders.
                             let ext_factory = ExtrinsicFactory(vec![
@@ -205,7 +205,7 @@ pub fn run() -> sc_cli::Result<()> {
                                 Box::new(TransferKeepAliveBuilder::new(
                                     params.client.clone(),
                                     Sr25519Keyring::Alice.to_account_id(),
-                                    ZeitgeistED::get(),
+                                    ZuluED::get(),
                                     true,
                                 )),
                             ]);
@@ -257,9 +257,9 @@ pub fn run() -> sc_cli::Result<()> {
             let chain_spec = &runner.config().chain_spec;
 
             match chain_spec {
-                #[cfg(feature = "with-zeitgeist-runtime")]
-                spec if spec.is_zeitgeist() => {
-                    runner.sync_run(|config| cmd.run::<zeitgeist_runtime::Block>(&config))
+                #[cfg(feature = "with-zulu-runtime")]
+                spec if spec.is_zulu() => {
+                    runner.sync_run(|config| cmd.run::<zulu_runtime::Block>(&config))
                 }
                 #[cfg(feature = "with-battery-station-runtime")]
                 _ => runner.sync_run(|config| cmd.run::<battery_station_runtime::Block>(&config)),
@@ -306,9 +306,9 @@ pub fn run() -> sc_cli::Result<()> {
             let state_version = Cli::native_runtime_version(chain_spec).state_version();
 
             let buf = match chain_spec {
-                #[cfg(feature = "with-zeitgeist-runtime")]
-                spec if spec.is_zeitgeist() => {
-                    let block: zeitgeist_runtime::Block =
+                #[cfg(feature = "with-zulu-runtime")]
+                spec if spec.is_zulu() => {
+                    let block: zulu_runtime::Block =
                         cumulus_client_cli::generate_genesis_block(&**chain_spec, state_version)?;
                     let raw_header = block.header().encode();
 
@@ -421,8 +421,8 @@ pub fn run() -> sc_cli::Result<()> {
             let chain_spec = &runner.config().chain_spec;
 
             match chain_spec {
-                #[cfg(feature = "with-zeitgeist-runtime")]
-                spec if spec.is_zeitgeist() => {
+                #[cfg(feature = "with-zulu-runtime")]
+                spec if spec.is_zulu() => {
                     runner.async_run(|config| {
                         // we don't need any of the components of new_partial, just a runtime, or a task
                         // manager to do `async_run`.
@@ -433,7 +433,7 @@ pub fn run() -> sc_cli::Result<()> {
                                     sc_cli::Error::Service(sc_service::Error::Prometheus(e))
                                 })?;
                         return Ok((
-                            cmd.run::<zeitgeist_runtime::Block, ZeitgeistExecutor>(config),
+                            cmd.run::<zulu_runtime::Block, ZuluExecutor>(config),
                             task_manager,
                         ));
                     })
@@ -497,7 +497,7 @@ fn none_command(cli: &Cli) -> sc_cli::Result<()> {
             );
 
         let state_version = Cli::native_runtime_version(chain_spec).state_version();
-        let block: zeitgeist_runtime::Block =
+        let block: zulu_runtime::Block =
             cumulus_client_cli::generate_genesis_block(&**chain_spec, state_version)
                 .map_err(|e| format!("{:?}", e))?;
         let genesis_state = format!("0x{:?}", HexDisplay::from(&block.header().encode()));
@@ -521,8 +521,8 @@ fn none_command(cli: &Cli) -> sc_cli::Result<()> {
         };
 
         match &parachain_config.chain_spec {
-            #[cfg(feature = "with-zeitgeist-runtime")]
-            spec if spec.is_zeitgeist() => new_full::<ZeitgeistRuntimeApi, ZeitgeistExecutor>(
+            #[cfg(feature = "with-zulu-runtime")]
+            spec if spec.is_zulu() => new_full::<ZuluRuntimeApi, ZuluExecutor>(
                 parachain_config,
                 parachain_id,
                 polkadot_config,
@@ -552,8 +552,8 @@ fn none_command(cli: &Cli) -> sc_cli::Result<()> {
     let runner = cli.create_runner(&cli.run)?;
     runner.run_node_until_exit(|config| async move {
         match &config.chain_spec {
-            #[cfg(feature = "with-zeitgeist-runtime")]
-            spec if spec.is_zeitgeist() => new_full::<ZeitgeistRuntimeApi, ZeitgeistExecutor>(
+            #[cfg(feature = "with-zulu-runtime")]
+            spec if spec.is_zulu() => new_full::<ZuluRuntimeApi, ZuluExecutor>(
                 config,
                 cli.no_hardware_benchmarks,
             )
@@ -566,16 +566,16 @@ fn none_command(cli: &Cli) -> sc_cli::Result<()> {
             .map_err(sc_cli::Error::Service),
             #[cfg(all(
                 not(feature = "with-battery-station-runtime"),
-                feature = "with-zeitgeist-runtime"
+                feature = "with-zulu-runtime"
             ))]
-            _ => new_full::<ZeitgeistRuntimeApi, ZeitgeistExecutor>(
+            _ => new_full::<ZuluRuntimeApi, ZuluExecutor>(
                 config,
                 cli.no_hardware_benchmarks,
             )
             .map_err(sc_cli::Error::Service),
             #[cfg(all(
                 not(feature = "with-battery-station-runtime"),
-                not(feature = "with-zeitgeist-runtime")
+                not(feature = "with-zulu-runtime")
             ))]
             _ => panic!("{}", crate::BATTERY_STATION_RUNTIME_NOT_AVAILABLE),
         }

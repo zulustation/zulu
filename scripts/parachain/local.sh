@@ -24,15 +24,15 @@ git rebase origin/$POLKADOT_BRANCH
 # Build everything
 
 cargo build --release
-cargo build --bin zeitgeist --features parachain --manifest-path ../../Cargo.toml --release
+cargo build --bin zulu --features parachain --manifest-path ../../Cargo.toml --release
 
 # Set-up
 
-../release/zeitgeist build-spec --chain $PARACHAIN_CHAIN --disable-default-bootnode > zeitgeist-plain.json
-../release/zeitgeist build-spec --chain zeitgeist-plain.json --disable-default-bootnode --raw > zeitgeist-raw.json
+../release/zulu build-spec --chain $PARACHAIN_CHAIN --disable-default-bootnode > zulu-plain.json
+../release/zulu build-spec --chain zulu-plain.json --disable-default-bootnode --raw > zulu-raw.json
 
-../release/zeitgeist export-genesis-state --chain zeitgeist-raw.json --parachain-id $PARACHAIN_ID > para-genesis
-../release/zeitgeist export-genesis-wasm --chain zeitgeist-raw.json > para-wasm
+../release/zulu export-genesis-state --chain zulu-raw.json --parachain-id $PARACHAIN_ID > para-genesis
+../release/zulu export-genesis-wasm --chain zulu-raw.json > para-wasm
 
 ./target/release/polkadot build-spec --chain $RELAYCHAIN_CHAIN --disable-default-bootnode > relaychain-plain.json
 set +x
@@ -64,7 +64,7 @@ start_validator() {
 start_validator --alice 31000 8100 9100 &> /dev/null & node_pid=$!
 start_validator --bob 31001 8101 9101 &> /dev/null & node_pid=$!
 
-# Zeitgeist collators
+# Zulu collators
 
 start_collator() {
   local collator_port=$1
@@ -78,12 +78,12 @@ start_collator() {
   local seed=$7
   local public_key=$8
 
-  rm -rf /tmp/zeitgeist-parachain-$collator_rpc_port
-  rm -rf /tmp/zeitgeist-relaychain-$relay_chain_rpc_port
+  rm -rf /tmp/zulu-parachain-$collator_rpc_port
+  rm -rf /tmp/zulu-relaychain-$relay_chain_rpc_port
 
-  LAUNCH_PARACHAIN_CMD="../release/zeitgeist \
-    --base-path=/tmp/zeitgeist-parachain-$collator_rpc_port \
-    --chain=./zeitgeist-raw.json \
+  LAUNCH_PARACHAIN_CMD="../release/zulu \
+    --base-path=/tmp/zulu-parachain-$collator_rpc_port \
+    --chain=./zulu-raw.json \
     --collator \
     --parachain-id=$PARACHAIN_ID \
     --port=$collator_port \
@@ -91,7 +91,7 @@ start_collator() {
     --ws-port=$collator_ws_port \
     -linfo,author_filter=trace,author_inherent=trace,cumulus_collator=trace,executive=trace,filtering_consensus=trace,runtime=trace,staking=trace,txpool=trace \
     -- \
-    --base-path=/tmp/zeitgeist-relaychain-$relay_chain_rpc_port \
+    --base-path=/tmp/zulu-relaychain-$relay_chain_rpc_port \
     --chain=./relaychain-raw.json \
     --execution=wasm \
     --port=$relay_chain_port \

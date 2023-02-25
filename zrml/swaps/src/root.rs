@@ -1,19 +1,19 @@
 // Copyright 2022 Forecasting Technologies LTD.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 //
 // This file incorporates work covered by the following copyright and
 // permission notice:
@@ -160,7 +160,7 @@ mod tests {
     use super::*;
     use crate::fixed::{bmul, bpowi};
     use test_case::test_case;
-    use zeitgeist_primitives::constants::BASE;
+    use zulu_primitives::constants::BASE;
 
     const _1: u128 = BASE;
     const _2: u128 = 2 * BASE;

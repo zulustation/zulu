@@ -1,20 +1,20 @@
 // Copyright 2022-2023 Forecasting Technologies LTD.
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 #![cfg(test)]
 
@@ -24,7 +24,7 @@ use crate::{
 };
 use frame_support::{assert_err, assert_noop, assert_ok};
 use sp_runtime::DispatchError;
-use zeitgeist_primitives::{
+use zulu_primitives::{
     traits::MarketCommonsPalletApi,
     types::{
         AccountIdTest, Asset, Balance, BlockNumber, Deadlines, Market, MarketBonds, MarketCreation,
@@ -34,7 +34,7 @@ use zeitgeist_primitives::{
 };
 
 const MARKET_DUMMY: Market<AccountIdTest, Balance, BlockNumber, Moment, Asset<MarketId>> = Market {
-    base_asset: Asset::Ztg,
+    base_asset: Asset::Zul,
     creation: MarketCreation::Permissionless,
     creator_fee: 0,
     creator: 0,
@@ -338,7 +338,7 @@ fn market_counter_interacts_correctly_with_push_market_and_remove_market() {
 
 fn market_mock(
     id: AccountIdTest,
-) -> zeitgeist_primitives::types::Market<AccountIdTest, Balance, BlockNumber, Moment, Asset<MarketId>>
+) -> zulu_primitives::types::Market<AccountIdTest, Balance, BlockNumber, Moment, Asset<MarketId>>
 {
     let mut market = MARKET_DUMMY;
     market.oracle = id;

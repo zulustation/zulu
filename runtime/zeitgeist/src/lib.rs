@@ -1,20 +1,20 @@
 // Copyright 2022-2023 Forecasting Technologies LTD.
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 #![cfg_attr(not(feature = "std"), no_std)]
 #![recursion_limit = "512"]
@@ -51,7 +51,7 @@ use sp_runtime::traits::{AccountIdConversion, AccountIdLookup, BlakeTwo256};
 #[cfg(feature = "std")]
 use sp_version::NativeVersion;
 use substrate_fixed::{types::extra::U33, FixedI128, FixedU128};
-use zeitgeist_primitives::{constants::*, types::*};
+use zulu_primitives::{constants::*, types::*};
 use zrml_rikiddo::types::{EmaMarketVolume, FeeSigmoid, RikiddoSigmoidMV};
 #[cfg(feature = "parachain")]
 use {
@@ -87,8 +87,8 @@ pub mod parameters;
 pub mod xcm_config;
 
 pub const VERSION: RuntimeVersion = RuntimeVersion {
-    spec_name: create_runtime_str!("zeitgeist"),
-    impl_name: create_runtime_str!("zeitgeist"),
+    spec_name: create_runtime_str!("zulu"),
+    impl_name: create_runtime_str!("zulu"),
     authoring_version: 1,
     spec_version: 42,
     impl_version: 1,
@@ -114,7 +114,7 @@ impl Contains<Call> for IsCallable {
         use pallet_collective::Call::set_members;
         use pallet_vesting::Call::force_vested_transfer;
 
-        use zeitgeist_primitives::types::{
+        use zulu_primitives::types::{
             MarketDisputeMechanism::{Court, SimpleDisputes},
             ScoringRule::RikiddoSigmoidFeeMarketEma,
         };

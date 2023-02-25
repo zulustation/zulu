@@ -1,28 +1,28 @@
 // Copyright 2022-2023 Forecasting Technologies LTD.
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 mod additional_chain_spec;
 #[cfg(feature = "with-battery-station-runtime")]
 pub(crate) mod battery_station;
 #[cfg(feature = "with-battery-station-runtime")]
 mod dev;
-#[cfg(feature = "with-zeitgeist-runtime")]
-pub(crate) mod zeitgeist;
+#[cfg(feature = "with-zulu-runtime")]
+pub(crate) mod zulu;
 
 pub use additional_chain_spec::AdditionalChainSpec;
 #[cfg(feature = "with-battery-station-runtime")]
@@ -35,11 +35,11 @@ use sc_telemetry::TelemetryEndpoints;
 use sp_core::{Pair, Public};
 #[cfg(feature = "with-battery-station-runtime")]
 use sp_runtime::traits::{IdentifyAccount, Verify};
-#[cfg(feature = "with-zeitgeist-runtime")]
-pub use zeitgeist::zeitgeist_staging_config;
+#[cfg(feature = "with-zulu-runtime")]
+pub use zulu::zulu_staging_config;
 #[cfg(feature = "with-battery-station-runtime")]
-use zeitgeist_primitives::types::Signature;
-use zeitgeist_primitives::{
+use zulu_primitives::types::Signature;
+use zulu_primitives::{
     constants::BalanceFractionalDecimals,
     types::{AccountId, Balance},
 };
@@ -55,8 +55,8 @@ cfg_if::cfg_if! {
                     annual_inflation_min: Perbill,
                     annual_inflation_ideal: Perbill,
                     annual_inflation_max: Perbill,
-                    total_supply: zeitgeist_primitives::types::Balance
-                ) -> pallet_parachain_staking::inflation::InflationInfo<zeitgeist_primitives::types::Balance> {
+                    total_supply: zulu_primitives::types::Balance
+                ) -> pallet_parachain_staking::inflation::InflationInfo<zulu_primitives::types::Balance> {
                     fn to_round_inflation(annual: pallet_parachain_staking::inflation::Range<Perbill>) -> pallet_parachain_staking::inflation::Range<Perbill> {
                         use pallet_parachain_staking::inflation::{
                             perbill_annual_to_perbill_round,
@@ -66,7 +66,7 @@ cfg_if::cfg_if! {
                         perbill_annual_to_perbill_round(
                             annual,
                             // rounds per year
-                            u32::try_from(zeitgeist_primitives::constants::BLOCKS_PER_YEAR).unwrap() / DefaultBlocksPerRound::get()
+                            u32::try_from(zulu_primitives::constants::BLOCKS_PER_YEAR).unwrap() / DefaultBlocksPerRound::get()
                         )
                     }
                     let annual = pallet_parachain_staking::inflation::Range {
@@ -97,7 +97,7 @@ cfg_if::cfg_if! {
 }
 
 const POLKADOT_TELEMETRY_URL: &str = "wss://telemetry.polkadot.io/submit/";
-const ZEITGEIST_TELEMETRY_URL: &str = "wss://telemetry.zeitgeist.pm/submit/";
+const ZULU_TELEMETRY_URL: &str = "wss://telemetry.zulu.pm/submit/";
 
 #[derive(Clone)]
 pub(crate) struct EndowedAccountWithBalance(AccountId, Balance);
@@ -249,7 +249,7 @@ fn token_properties(token_symbol: &str, ss58_prefix: u8) -> Properties {
 fn telemetry_endpoints() -> Option<TelemetryEndpoints> {
     TelemetryEndpoints::new(vec![
         (POLKADOT_TELEMETRY_URL.into(), 0),
-        (ZEITGEIST_TELEMETRY_URL.into(), 0),
+        (ZULU_TELEMETRY_URL.into(), 0),
     ])
     .ok()
 }

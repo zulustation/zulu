@@ -1,25 +1,25 @@
 // Copyright 2022-2023 Forecasting Technologies LTD.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 use super::fees::{native_per_second, FixedConversionRateProvider};
 use crate::{
     AccountId, Ancestry, AssetManager, AssetRegistry, Balance, Call, CurrencyId, MaxInstructions,
     Origin, ParachainInfo, ParachainSystem, PolkadotXcm, RelayChainOrigin, RelayNetwork,
-    UnitWeightCost, UnknownTokens, XcmpQueue, ZeitgeistTreasuryAccount,
+    UnitWeightCost, UnknownTokens, XcmpQueue, ZuluTreasuryAccount,
 };
 
 use frame_support::{parameter_types, traits::Everything, WeakBoundedVec};
@@ -46,7 +46,7 @@ use xcm_builder::{
     TakeWeightCredit,
 };
 use xcm_executor::Config;
-use zeitgeist_primitives::types::Asset;
+use zulu_primitives::types::Asset;
 
 pub mod battery_station {
     #[cfg(test)]
@@ -112,8 +112,8 @@ pub type Barrier = (
 pub type Trader = (
     // In case the asset in question is the native currency, it will charge
     // the default base fee per second and deposits them into treasury
-    FixedRateOfFungible<ZtgPerSecond, ToTreasury>,
-    FixedRateOfFungible<ZtgPerSecondCanonical, ToTreasury>,
+    FixedRateOfFungible<ZulPerSecond, ToTreasury>,
+    FixedRateOfFungible<ZulPerSecondCanonical, ToTreasury>,
     // For all other assets the base fee per second will tried to be derived
     // through the `fee_factor` entry in the asset registry. If the asset is
     // not present in the asset registry, the default base fee per second is used.
@@ -133,7 +133,7 @@ impl TakeRevenue for ToTreasury {
             if let Ok(asset_id) =
                 <AssetConvert as Convert<MultiLocation, CurrencyId>>::convert(location)
             {
-                let _ = AssetManager::deposit(asset_id, &ZeitgeistTreasuryAccount::get(), amount);
+                let _ = AssetManager::deposit(asset_id, &ZuluTreasuryAccount::get(), amount);
             }
         }
     }
@@ -141,16 +141,16 @@ impl TakeRevenue for ToTreasury {
 
 parameter_types! {
     pub CheckAccount: AccountId = PolkadotXcm::check_account();
-    /// The amount of ZTG charged per second of execution (canonical multilocation).
-    pub ZtgPerSecondCanonical: (AssetId, u128) = (
+    /// The amount of ZUL charged per second of execution (canonical multilocation).
+    pub ZulPerSecondCanonical: (AssetId, u128) = (
         MultiLocation::new(
             0,
             X1(general_key(battery_station::KEY)),
         ).into(),
         native_per_second(),
     );
-    /// The amount of canonical ZTG charged per second of execution.
-    pub ZtgPerSecond: (AssetId, u128) = (
+    /// The amount of canonical ZUL charged per second of execution.
+    pub ZulPerSecond: (AssetId, u128) = (
         MultiLocation::new(
             1,
             X2(Junction::Parachain(ParachainInfo::parachain_id().into()), general_key(battery_station::KEY)),
@@ -177,7 +177,7 @@ pub type MultiAssetTransactor = MultiCurrencyAdapter<
     // Struct that provides functions to convert `Asset` <=> `MultiLocation`.
     AssetConvert,
     // In case of deposit failure, known assets will be placed in treasury.
-    DepositToAlternative<ZeitgeistTreasuryAccount, AssetManager, CurrencyId, AccountId, Balance>,
+    DepositToAlternative<ZuluTreasuryAccount, AssetManager, CurrencyId, AccountId, Balance>,
 >;
 
 /// AssetConvert
@@ -192,7 +192,7 @@ pub struct AssetConvert;
 impl Convert<CurrencyId, Option<MultiLocation>> for AssetConvert {
     fn convert(id: CurrencyId) -> Option<MultiLocation> {
         match id {
-            Asset::Ztg => Some(MultiLocation::new(
+            Asset::Zul => Some(MultiLocation::new(
                 1,
                 X2(
                     Junction::Parachain(ParachainInfo::parachain_id().into()),
@@ -213,7 +213,7 @@ impl xcm_executor::traits::Convert<MultiLocation, CurrencyId> for AssetConvert {
         match location.clone() {
             MultiLocation { parents: 0, interior: X1(GeneralKey(key)) } => {
                 if &key[..] == battery_station::KEY {
-                    return Ok(CurrencyId::Ztg);
+                    return Ok(CurrencyId::Zul);
                 }
 
                 Err(location)
@@ -224,7 +224,7 @@ impl xcm_executor::traits::Convert<MultiLocation, CurrencyId> for AssetConvert {
             } => {
                 if para_id == u32::from(ParachainInfo::parachain_id()) {
                     if &key[..] == battery_station::KEY {
-                        return Ok(CurrencyId::Ztg);
+                        return Ok(CurrencyId::Zul);
                     }
 
                     return Err(location);

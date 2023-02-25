@@ -1,19 +1,19 @@
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 #![doc = include_str!("../README.md")]
 #![cfg_attr(not(feature = "std"), no_std)]
@@ -27,7 +27,7 @@ use sp_runtime::{
     traits::{CheckedMul, CheckedSub},
     ArithmeticError, DispatchError, RuntimeDebug,
 };
-use zeitgeist_primitives::types::Asset;
+use zulu_primitives::types::Asset;
 
 #[cfg(feature = "runtime-benchmarks")]
 mod benchmarks;
@@ -57,7 +57,7 @@ mod pallet {
         traits::{Hash, Zero},
         ArithmeticError, DispatchError,
     };
-    use zeitgeist_primitives::{traits::MarketId, types::Asset};
+    use zulu_primitives::{traits::MarketId, types::Asset};
 
     /// The current storage version.
     const STORAGE_VERSION: StorageVersion = StorageVersion::new(0);
@@ -266,7 +266,7 @@ mod pallet {
             CurrencyId = Asset<Self::MarketId>,
         >;
 
-        type WeightInfo: WeightInfoZeitgeist;
+        type WeightInfo: WeightInfoZulu;
     }
 
     #[pallet::error]

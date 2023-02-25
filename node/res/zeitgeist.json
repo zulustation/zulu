@@ -1,6 +1,6 @@
 {
-  "name": "Zeitgeist",
-  "id": "zeitgeist",
+  "name": "Zulu",
+  "id": "zulu",
   "chainType": "Live",
   "bootNodes": [],
   "telemetryEndpoints": [
@@ -9,15 +9,15 @@
       0
     ],
     [
-      "/dns/telemetry.zeitgeist.pm/tcp/443/x-parity-wss/%2Fsubmit%2F",
+      "/dns/telemetry.zulu.pm/tcp/443/x-parity-wss/%2Fsubmit%2F",
       0
     ]
   ],
-  "protocolId": "zeitgeist_standalone",
+  "protocolId": "zulu_standalone",
   "properties": {
     "ss58Format": 73,
     "tokenDecimals": 10,
-    "tokenSymbol": "ZTG"
+    "tokenSymbol": "ZUL"
   },
   "consensusEngine": null,
   "codeSubstitutes": {},

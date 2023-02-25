@@ -4,7 +4,7 @@ default-members = [
     "primitives",
     "runtime/common",
     "runtime/battery-station",
-    "runtime/zeitgeist",
+    "runtime/zulu",
     "zrml/authorized",
     "zrml/court",
     "zrml/global-disputes",
@@ -25,7 +25,7 @@ members = [
     "primitives",
     "runtime/common",
     "runtime/battery-station",
-    "runtime/zeitgeist",
+    "runtime/zulu",
     "zrml/authorized",
     "zrml/court",
     "zrml/global-disputes",
@@ -110,5 +110,5 @@ lto = true
 
 [profile.release]
 opt-level = 3
-# Zeitgeist runtime requires unwinding.
+# Zulu runtime requires unwinding.
 panic = "unwind"

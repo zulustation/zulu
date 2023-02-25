@@ -1,20 +1,20 @@
 // Copyright 2022-2023 Forecasting Technologies LTD.
 // Copyright 2021 Centrifuge Foundation (centrifuge.io).
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 use crate::{
     xcm_config::config::{battery_station, general_key},
@@ -26,7 +26,7 @@ use xcm::{
     latest::{Junction::Parachain, Junctions::X2, MultiLocation},
     VersionedMultiLocation,
 };
-use zeitgeist_primitives::types::{Asset, CustomMetadata};
+use zulu_primitives::types::{Asset, CustomMetadata};
 
 pub(super) struct ExtBuilder {
     balances: Vec<(AccountId, CurrencyId, Balance)>,
@@ -52,7 +52,7 @@ impl ExtBuilder {
 
     pub fn build(self) -> sp_io::TestExternalities {
         let mut t = frame_system::GenesisConfig::default().build_storage::<Runtime>().unwrap();
-        let native_currency_id = CurrencyId::Ztg;
+        let native_currency_id = CurrencyId::Zul;
         pallet_balances::GenesisConfig::<Runtime> {
             balances: self
                 .balances
@@ -102,13 +102,13 @@ pub const BOB: [u8; 32] = [5u8; 32];
 pub const PARA_ID_SIBLING: u32 = 3000;
 
 /// IDs that are used to represent tokens from other chains
-pub const FOREIGN_ZTG_ID: Asset<u128> = CurrencyId::ForeignAsset(0);
+pub const FOREIGN_ZUL_ID: Asset<u128> = CurrencyId::ForeignAsset(0);
 pub const FOREIGN_PARENT_ID: Asset<u128> = CurrencyId::ForeignAsset(1);
 pub const FOREIGN_SIBLING_ID: Asset<u128> = CurrencyId::ForeignAsset(2);
 
 // Multilocations that are used to represent tokens from other chains
 #[inline]
-pub(super) fn foreign_ztg_multilocation() -> MultiLocation {
+pub(super) fn foreign_zul_multilocation() -> MultiLocation {
     MultiLocation::new(1, X2(Parachain(battery_station::ID), general_key(battery_station::KEY)))
 }
 
@@ -122,18 +122,18 @@ pub(super) fn foreign_parent_multilocation() -> MultiLocation {
     MultiLocation::parent()
 }
 
-pub(super) fn register_foreign_ztg(additional_meta: Option<CustomMetadata>) {
-    // Register ZTG as foreign asset.
+pub(super) fn register_foreign_zul(additional_meta: Option<CustomMetadata>) {
+    // Register ZUL as foreign asset.
     let meta: AssetMetadata<Balance, CustomMetadata> = AssetMetadata {
         decimals: 10,
-        name: "Zeitgeist".into(),
-        symbol: "ZTG".into(),
+        name: "Zulu".into(),
+        symbol: "ZUL".into(),
         existential_deposit: ExistentialDeposit::get(),
-        location: Some(VersionedMultiLocation::V1(foreign_ztg_multilocation())),
+        location: Some(VersionedMultiLocation::V1(foreign_zul_multilocation())),
         additional: additional_meta.unwrap_or_default(),
     };
 
-    assert_ok!(AssetRegistry::register_asset(Origin::root(), meta, Some(FOREIGN_ZTG_ID)));
+    assert_ok!(AssetRegistry::register_asset(Origin::root(), meta, Some(FOREIGN_ZUL_ID)));
 }
 
 pub(super) fn register_foreign_sibling(additional_meta: Option<CustomMetadata>) {
@@ -165,7 +165,7 @@ pub(super) fn register_foreign_parent(additional_meta: Option<CustomMetadata>) {
 }
 
 #[inline]
-pub(super) fn ztg(amount: Balance) -> Balance {
+pub(super) fn zul(amount: Balance) -> Balance {
     amount * dollar(10)
 }
 
@@ -190,7 +190,7 @@ pub(super) fn sibling_parachain_account() -> AccountId {
 }
 
 #[inline]
-pub(super) fn zeitgeist_parachain_account() -> AccountId {
+pub(super) fn zulu_parachain_account() -> AccountId {
     parachain_account(battery_station::ID)
 }
 

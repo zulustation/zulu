@@ -1,19 +1,19 @@
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 #![doc = include_str!("../README.md")]
 #![cfg_attr(not(feature = "std"), no_std)]
@@ -31,9 +31,9 @@ pub mod pallet {
     use frame_support::{pallet_prelude::*, traits::Currency};
     use frame_system::pallet_prelude::*;
     use sp_runtime::SaturatedConversion;
-    use zeitgeist_primitives::types::Balance;
+    use zulu_primitives::types::Balance;
 
-    use crate::weights::WeightInfoZeitgeist;
+    use crate::weights::WeightInfoZulu;
 
     #[pallet::config]
     pub trait Config: frame_system::Config {
@@ -44,7 +44,7 @@ pub mod pallet {
 
         type Currency: Currency<Self::AccountId>;
 
-        type WeightInfo: WeightInfoZeitgeist;
+        type WeightInfo: WeightInfoZulu;
     }
 
     #[pallet::pallet]
@@ -57,7 +57,7 @@ pub mod pallet {
 
     #[pallet::type_value]
     pub fn DefaultBurnAmount<T: Config>() -> Balance {
-        (zeitgeist_primitives::constants::BASE * 200).saturated_into()
+        (zulu_primitives::constants::BASE * 200).saturated_into()
     }
 
     /// An extra layer of pseudo randomness.
@@ -83,7 +83,7 @@ pub mod pallet {
 
     #[pallet::call]
     impl<T: Config> Pallet<T> {
-        /// Burns ZTG(styx.burnAmount()) to cross, granting the ability to claim your zeitgeist avatar.
+        /// Burns ZUL(styx.burnAmount()) to cross, granting the ability to claim your zulu avatar.
         /// The signer can only cross once.
         #[pallet::weight(T::WeightInfo::cross())]
         pub fn cross(origin: OriginFor<T>) -> DispatchResult {

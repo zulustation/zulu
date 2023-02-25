@@ -1,19 +1,19 @@
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 use super::service::FullClient;
 
@@ -25,22 +25,22 @@ use sp_inherents::{InherentData, InherentDataProvider};
 use sp_keyring::Sr25519Keyring;
 use sp_runtime::{OpaqueExtrinsic, SaturatedConversion};
 use std::{sync::Arc, time::Duration};
-use zeitgeist_primitives::types::{AccountId, Balance, Signature};
+use zulu_primitives::types::{AccountId, Balance, Signature};
 
 /// Generates extrinsics for the `benchmark overhead` command.
 ///
 /// Note: Should only be used for benchmarking.
 pub struct RemarksExtrinsicBuilder<RuntimeApi, Executor: NativeExecutionDispatch + 'static> {
     client: Arc<FullClient<RuntimeApi, Executor>>,
-    is_zeitgeist: bool,
+    is_zulu: bool,
 }
 
 impl<RuntimeApi, Executor: NativeExecutionDispatch + 'static>
     RemarksExtrinsicBuilder<RuntimeApi, Executor>
 {
     /// Creates a new [`Self`] from the given client.
-    pub fn new(client: Arc<FullClient<RuntimeApi, Executor>>, is_zeitgeist: bool) -> Self {
-        Self { client, is_zeitgeist }
+    pub fn new(client: Arc<FullClient<RuntimeApi, Executor>>, is_zulu: bool) -> Self {
+        Self { client, is_zulu }
     }
 }
 
@@ -58,18 +58,18 @@ impl<RuntimeApi, Executor: NativeExecutionDispatch + 'static>
     fn build(&self, nonce: u32) -> std::result::Result<OpaqueExtrinsic, &'static str> {
         let acc = Sr25519Keyring::Bob.pair();
 
-        #[cfg(feature = "with-zeitgeist-runtime")]
-        if self.is_zeitgeist {
-            return Ok(create_benchmark_extrinsic_zeitgeist(
+        #[cfg(feature = "with-zulu-runtime")]
+        if self.is_zulu {
+            return Ok(create_benchmark_extrinsic_zulu(
                 self.client.as_ref(),
                 acc,
-                zeitgeist_runtime::SystemCall::remark { remark: vec![] }.into(),
+                zulu_runtime::SystemCall::remark { remark: vec![] }.into(),
                 nonce,
             )
             .into());
         }
         #[cfg(feature = "with-battery-station-runtime")]
-        if !self.is_zeitgeist {
+        if !self.is_zulu {
             return Ok(create_benchmark_extrinsic_battery_station(
                 self.client.as_ref(),
                 acc,
@@ -90,7 +90,7 @@ pub struct TransferKeepAliveBuilder<RuntimeApi, Executor: NativeExecutionDispatc
     client: Arc<FullClient<RuntimeApi, Executor>>,
     dest: AccountId,
     value: Balance,
-    is_zeitgeist: bool,
+    is_zulu: bool,
 }
 
 impl<RuntimeApi, Executor: NativeExecutionDispatch + 'static>
@@ -101,9 +101,9 @@ impl<RuntimeApi, Executor: NativeExecutionDispatch + 'static>
         client: Arc<FullClient<RuntimeApi, Executor>>,
         dest: AccountId,
         value: Balance,
-        is_zeitgeist: bool,
+        is_zulu: bool,
     ) -> Self {
-        Self { client, dest, value, is_zeitgeist }
+        Self { client, dest, value, is_zulu }
     }
 }
 
@@ -120,12 +120,12 @@ impl<RuntimeApi, Executor: NativeExecutionDispatch + 'static>
 
     fn build(&self, nonce: u32) -> std::result::Result<OpaqueExtrinsic, &'static str> {
         let acc = Sr25519Keyring::Bob.pair();
-        #[cfg(feature = "with-zeitgeist-runtime")]
-        if self.is_zeitgeist {
-            return Ok(create_benchmark_extrinsic_zeitgeist(
+        #[cfg(feature = "with-zulu-runtime")]
+        if self.is_zulu {
+            return Ok(create_benchmark_extrinsic_zulu(
                 self.client.as_ref(),
                 acc,
-                zeitgeist_runtime::BalancesCall::transfer_keep_alive {
+                zulu_runtime::BalancesCall::transfer_keep_alive {
                     dest: self.dest.clone().into(),
                     value: self.value,
                 }
@@ -135,7 +135,7 @@ impl<RuntimeApi, Executor: NativeExecutionDispatch + 'static>
             .into());
         }
         #[cfg(feature = "with-battery-station-runtime")]
-        if !self.is_zeitgeist {
+        if !self.is_zulu {
             return Ok(create_benchmark_extrinsic_battery_station(
                 self.client.as_ref(),
                 acc,
@@ -156,44 +156,44 @@ impl<RuntimeApi, Executor: NativeExecutionDispatch + 'static>
 /// Creates a transaction using the given `call`.
 ///
 /// Note: Should only be used for benchmarking.
-#[cfg(feature = "with-zeitgeist-runtime")]
-pub fn create_benchmark_extrinsic_zeitgeist<
+#[cfg(feature = "with-zulu-runtime")]
+pub fn create_benchmark_extrinsic_zulu<
     RuntimeApi,
     Executor: NativeExecutionDispatch + 'static,
 >(
     client: &FullClient<RuntimeApi, Executor>,
     sender: sp_core::sr25519::Pair,
-    call: zeitgeist_runtime::Call,
+    call: zulu_runtime::Call,
     nonce: u32,
-) -> zeitgeist_runtime::UncheckedExtrinsic {
+) -> zulu_runtime::UncheckedExtrinsic {
     let genesis_hash = client.block_hash(0).ok().flatten().expect("Genesis block exists; qed");
     let best_hash = client.chain_info().best_hash;
     let best_block = client.chain_info().best_number;
 
-    let period = zeitgeist_runtime::BlockHashCount::get()
+    let period = zulu_runtime::BlockHashCount::get()
         .checked_next_power_of_two()
         .map(|c| c / 2)
         .unwrap_or(2);
-    let extra: zeitgeist_runtime::SignedExtra = (
-        zeitgeist_runtime::CheckNonZeroSender::<zeitgeist_runtime::Runtime>::new(),
-        zeitgeist_runtime::CheckSpecVersion::<zeitgeist_runtime::Runtime>::new(),
-        zeitgeist_runtime::CheckTxVersion::<zeitgeist_runtime::Runtime>::new(),
-        zeitgeist_runtime::CheckGenesis::<zeitgeist_runtime::Runtime>::new(),
-        zeitgeist_runtime::CheckEra::<zeitgeist_runtime::Runtime>::from(
+    let extra: zulu_runtime::SignedExtra = (
+        zulu_runtime::CheckNonZeroSender::<zulu_runtime::Runtime>::new(),
+        zulu_runtime::CheckSpecVersion::<zulu_runtime::Runtime>::new(),
+        zulu_runtime::CheckTxVersion::<zulu_runtime::Runtime>::new(),
+        zulu_runtime::CheckGenesis::<zulu_runtime::Runtime>::new(),
+        zulu_runtime::CheckEra::<zulu_runtime::Runtime>::from(
             sp_runtime::generic::Era::mortal(period, best_block.saturated_into()),
         ),
-        zeitgeist_runtime::CheckNonce::<zeitgeist_runtime::Runtime>::from(nonce.into()),
-        zeitgeist_runtime::CheckWeight::<zeitgeist_runtime::Runtime>::new(),
-        pallet_transaction_payment::ChargeTransactionPayment::<zeitgeist_runtime::Runtime>::from(0),
+        zulu_runtime::CheckNonce::<zulu_runtime::Runtime>::from(nonce.into()),
+        zulu_runtime::CheckWeight::<zulu_runtime::Runtime>::new(),
+        pallet_transaction_payment::ChargeTransactionPayment::<zulu_runtime::Runtime>::from(0),
     );
 
-    let raw_payload = zeitgeist_runtime::SignedPayload::from_raw(
+    let raw_payload = zulu_runtime::SignedPayload::from_raw(
         call.clone(),
         extra.clone(),
         (
             (),
-            zeitgeist_runtime::VERSION.spec_version,
-            zeitgeist_runtime::VERSION.transaction_version,
+            zulu_runtime::VERSION.spec_version,
+            zulu_runtime::VERSION.transaction_version,
             genesis_hash,
             best_hash,
             (),
@@ -203,7 +203,7 @@ pub fn create_benchmark_extrinsic_zeitgeist<
     );
     let signature = raw_payload.using_encoded(|e| sender.sign(e));
 
-    zeitgeist_runtime::UncheckedExtrinsic::new_signed(
+    zulu_runtime::UncheckedExtrinsic::new_signed(
         call,
         sp_runtime::AccountId32::from(sender.public()).into(),
         Signature::Sr25519(signature),

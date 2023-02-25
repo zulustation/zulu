@@ -19,7 +19,7 @@ check-dummy:
 --try-runtime:
 	RUST_LOG=runtime=trace,try-runtime::cli=trace,executor=trace \
 		cargo run \
-		--bin=zeitgeist \
+		--bin=zulu \
 		--features=parachain,try-runtime \
 		try-runtime \
 		--execution=Native \
@@ -29,10 +29,10 @@ check-dummy:
 		--uri=${TRYRUNTIME_URL}
 
 try-runtime-upgrade-battery-station:
-	@$(MAKE) TRYRUNTIME_CHAIN="battery_station_staging" TRYRUNTIME_URL="wss://bsr.zeitgeist.pm:443" -- --try-runtime
+	@$(MAKE) TRYRUNTIME_CHAIN="battery_station_staging" TRYRUNTIME_URL="wss://bsr.zulu.pm:443" -- --try-runtime
 
-try-runtime-upgrade-zeitgeist:
-	@$(MAKE) TRYRUNTIME_CHAIN="zeitgeist_staging" TRYRUNTIME_URL="wss://zeitgeist-rpc.dwellir.com:443" -- --try-runtime
+try-runtime-upgrade-zulu:
+	@$(MAKE) TRYRUNTIME_CHAIN="zulu_staging" TRYRUNTIME_URL="wss://zulu-rpc.dwellir.com:443" -- --try-runtime
 
 build:
 	SKIP_WASM_BUILD= cargo build
@@ -41,6 +41,6 @@ build-production:
 	SKIP_WASM_BUILD= cargo build --profile=production
 
 purge:
-	target/debug/zeitgeist purge-chain --dev -y
+	target/debug/zulu purge-chain --dev -y
 
 restart: purge run

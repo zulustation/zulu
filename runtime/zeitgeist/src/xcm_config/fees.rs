@@ -1,26 +1,26 @@
 // Copyright 2022-2023 Forecasting Technologies LTD.
 // Copyright 2021 Centrifuge Foundation (centrifuge.io).
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 use crate::{Balance, CurrencyId};
 use core::marker::PhantomData;
 use frame_support::weights::constants::{ExtrinsicBaseWeight, WEIGHT_PER_SECOND};
 use xcm::latest::MultiLocation;
-use zeitgeist_primitives::{constants::BalanceFractionalDecimals, types::CustomMetadata};
+use zulu_primitives::{constants::BalanceFractionalDecimals, types::CustomMetadata};
 use zrml_swaps::check_arithm_rslt::CheckArithmRslt;
 
 /// The fee cost per second for transferring the native token in cents.

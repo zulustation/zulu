@@ -1,15 +1,15 @@
-<a href="https://zeitgeist.pm">
+<a href="https://zulu.pm">
   <img src="./GH-banner.jpg">
 </a>
 
-# Zeitgeist: An Evolving Blockchain for Prediction Markets and Futarchy
+# Zulu: An Evolving Blockchain for Prediction Markets and Futarchy
 
-![Rust](https://github.com/zeitgeistpm/zeitgeist/workflows/Rust/badge.svg) [![Codecov](https://codecov.io/gh/zeitgeistpm/zeitgeist/branch/main/graph/badge.svg)](https://codecov.io/gh/zeitgeistpm/zeitgeist) [![Discord](https://img.shields.io/badge/discord-https%3A%2F%2Fdiscord.gg%2FMD3TbH3ctv-purple)](https://discord.gg/MD3TbH3ctv) [![Telegram](https://img.shields.io/badge/telegram-https%3A%2F%2Ft.me%2Fzeitgeist__official-blue)](https://t.me/zeitgeist_official)
+![Rust](https://github.com/zulustation/zulu/workflows/Rust/badge.svg) [![Codecov](https://codecov.io/gh/zulustation/zulu/branch/main/graph/badge.svg)](https://codecov.io/gh/zulustation/zulu) [![Discord](https://img.shields.io/badge/discord-https%3A%2F%2Fdiscord.gg%2FMD3TbH3ctv-purple)](https://discord.gg/MD3TbH3ctv) [![Telegram](https://img.shields.io/badge/telegram-https%3A%2F%2Ft.me%2Fzulu__official-blue)](https://t.me/zulu_official)
 
-Zeitgeist is a decentralized network for creating, betting on, and resolving
-prediction markets. The platform's native currency, the ZTG, is used to sway the
+Zulu is a decentralized network for creating, betting on, and resolving
+prediction markets. The platform's native currency, the ZUL, is used to sway the
 direction of the network, and as a means of last-call dispute resolution.
-Additionally, Zeitgeist is a protocol for efficient trading of prediction market
+Additionally, Zulu is a protocol for efficient trading of prediction market
 shares and will one day become the backbone of the decentralized finance
 ecosystem by allowing traders to create complex financial contracts on
 virtually _anything_.
@@ -20,15 +20,15 @@ virtually _anything_.
 - [court](./zrml/court) - An implementation of a court mechanism used to resolve
   disputes in a decentralized fashion.
 - [global-disputes](./zrml-global-disputes) - Global disputes sets one out of
-  multiple outcomes with the most locked ZTG tokens as the canonical outcome.
+  multiple outcomes with the most locked ZUL tokens as the canonical outcome.
   This is the default process if a dispute mechanism fails to resolve.
 - [liquidity-mining](./zrml/liquidity-mining) - This pallet implements the
-  time-based incentivization with Zeitgeist tokens for continuously providing
+  time-based incentivization with Zulu tokens for continuously providing
   liquidity to swap pools.
 - [market-commons](./zrml/market-commons) - Contains common operations on
   markets that are used by multiple pallets.
 - [orderbook-v1](./zrml/orderbook-v1) - A naive orderbook implementation that's
-  only part of Zeitgeist's PoC. Will be replaced by a v2 orderbook that uses
+  only part of Zulu's PoC. Will be replaced by a v2 orderbook that uses
   0x-style hybrid on-chain and off-chain trading.
 - [prediction-markets](./zrml/prediction-markets) - The core implementation of
   the prediction market logic for creating and resolving markets.
@@ -46,9 +46,9 @@ virtually _anything_.
   scoring rule. Rikiddo can be used by the automated market maker to determine
   swap prices.
 
-## How to build and run a Zeitgeist node
+## How to build and run a Zulu node
 
-Zeitgeist node comes in two flavors, one for standalone self-contained execution
+Zulu node comes in two flavors, one for standalone self-contained execution
 and another for Kusama/Polkadot parachain integration.
 
 To build the standalone version, simply point to the top directory of this
@@ -68,14 +68,14 @@ Optimized binaries (`--release`) are usually used for production (faster and
 smaller), but this behavior is optional and up to you.
 
 Our current beta test network [Battery Station][zg-beta] runs as a parachain. To
-connect your Zeitgeist parachain node, follow the tutorial at our [documentation
+connect your Zulu parachain node, follow the tutorial at our [documentation
 site][bs-docs].
 
 Alternatively you can run a non-parachain node, which is usually only necessary
 for testing purposes, by executing the following command:
 
 ```
-cargo run --release --bin zeitgeist -- <node-options-and-flags>
+cargo run --release --bin zulu -- <node-options-and-flags>
 ```
 
 A common value for `<node-options-and-flags>` is `--dev --tmp`, which runs a
@@ -89,32 +89,32 @@ the network with relatively low effort and high compatibility. In order to fetch
 the latest docker image, ensure you have Docker installed locally, then type (or
 paste) the following commands in your terminal.
 
-For parachain Zeitgeist node:
+For parachain Zulu node:
 
 ```
-docker pull zeitgeistpm/zeitgeist-node-parachain
+docker pull zulustation/zulu-node-parachain
 ```
 
-For standalone, non-parachain Zeitgeist node:
+For standalone, non-parachain Zulu node:
 
 ```
-docker pull zeitgeistpm/zeitgeist-node
+docker pull zulustation/zulu-node
 ```
 
 Our current beta test network [Battery Station][zg-beta] runs as a parachain. To
-connect your Zeitgeist parachain node, follow the tutorial at our [documentation
+connect your Zulu parachain node, follow the tutorial at our [documentation
 site][bs-docs].
 
 Alternatively you can run a non-parachain node, which is usually only necessary
 for testing purposes, by executing the following command:
 
 ```
-docker run zeitgeistpm/zeitgeist-node -- <node-options-and-flags>
+docker run zulustation/zulu-node -- <node-options-and-flags>
 ```
 
-[bs-docs]: https://docs.zeitgeist.pm/docs/basic/battery-station
+[bs-docs]: https://docs.zulu.pm/docs/basic/battery-station
 [ls-lmsr]: https://www.eecs.harvard.edu/cs286r/courses/fall12/papers/OPRS10.pdf
 [rikiddo]:
-  https://blog.zeitgeist.pm/introducing-zeitgeists-rikiddo-scoring-rule/
-[zg-beta]: https://blog.zeitgeist.pm/zeitgeist-beta/
-[zg-docker-hub]: https://hub.docker.com/r/zeitgeistpm/zeitgeist-node
+  https://blog.zulu.pm/introducing-zulus-rikiddo-scoring-rule/
+[zg-beta]: https://blog.zulu.pm/zulu-beta/
+[zg-docker-hub]: https://hub.docker.com/r/zulustation/zulu-node

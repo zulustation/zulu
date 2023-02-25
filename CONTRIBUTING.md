@@ -14,7 +14,7 @@ Please observe the following ground-rules when making contributions:
   typo" or "Fixes typo".
 - Avoid force pushes when a pull request is in review.
 - A pull request may only be merged when it has received at least one approval
-  from a member of [zeitgeistpm] and GitHub Actions have passed successfully.
+  from a member of [zulustation] and GitHub Actions have passed successfully.
   Whenever possible, the author should execute the merge.
 - Comments in a review should be resolved by the author.
 - Please use _squash and merge_ to merge pull requests. Feel free to remove
@@ -30,25 +30,25 @@ Labels are used to denote status (`s:*`) and priority (`p:*`) of pull requests.
 
 - Every pull request may not have more than one status label.
 - Pull requests should be marked with the
-  ![label: Content](https://img.shields.io/github/labels/zeitgeistpm/zeitgeist/s:in-progress)
+  ![label: Content](https://img.shields.io/github/labels/zulustation/zulu/s:in-progress)
   label until they are ready for review.
 - Pull requests that are ready for review should be marked with
-  ![label: Content](https://img.shields.io/github/labels/zeitgeistpm/zeitgeist/s:review-needed).
+  ![label: Content](https://img.shields.io/github/labels/zulustation/zulu/s:review-needed).
 - If a reviewer requests changes, they should use the
-  ![label: Content](https://img.shields.io/github/labels/zeitgeistpm/zeitgeist/s:revision-needed).
+  ![label: Content](https://img.shields.io/github/labels/zulustation/zulu/s:revision-needed).
 - Once a pull request is approved (see [Rules] above), it should be marked with
-  ![label: Content](https://img.shields.io/github/labels/zeitgeistpm/zeitgeist/s:accepted)
-- Priority labels are placed by [zeitgeistpm] members.
+  ![label: Content](https://img.shields.io/github/labels/zulustation/zulu/s:accepted)
+- Priority labels are placed by [zulustation] members.
 
 The `t:*` labels are used to specify types of issues. Their use is placed at the
-discretion of [zeitgeistpm] members.
+discretion of [zulustation] members.
 
 If the changes made in a PR require a change to the substrate `RuntimeVersion`,
 mark the PR with the following labels according to
 [RuntimeVersion](https://docs.rs/sp-version/latest/sp_version/struct.RuntimeVersion.html):
-![label: Content](https://img.shields.io/github/labels/zeitgeistpm/zeitgeist/i:authorship-interface-changed%20:warning:),
-![label: Content](https://img.shields.io/github/labels/zeitgeistpm/zeitgeist/i:spec-changed%20:warning:),
-![label: Content](https://img.shields.io/github/labels/zeitgeistpm/zeitgeist/i:transactions-changed%20:warning:).
+![label: Content](https://img.shields.io/github/labels/zulustation/zulu/i:authorship-interface-changed%20:warning:),
+![label: Content](https://img.shields.io/github/labels/zulustation/zulu/i:spec-changed%20:warning:),
+![label: Content](https://img.shields.io/github/labels/zulustation/zulu/i:transactions-changed%20:warning:).
 
 ## Style Guide
 
@@ -70,4 +70,4 @@ mark the PR with the following labels according to
 
 [rules]: #Rules
 [docs/changelog_for_devs.md]: docs/changelog_for_devs.md
-[zeitgeistpm]: https://github.com/zeitgeistpm
+[zulustation]: https://github.com/zulustation

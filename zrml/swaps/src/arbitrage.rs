@@ -1,19 +1,19 @@
 // Copyright 2022 Forecasting Technologies LTD.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 //! Traits and implementation for automatic arbitrage of CPMM pools.
 
@@ -24,7 +24,7 @@ use sp_runtime::{
     traits::{AtLeast32Bit, AtLeast32BitUnsigned},
     SaturatedConversion,
 };
-use zeitgeist_primitives::{
+use zulu_primitives::{
     constants::BASE,
     types::{Asset, Pool},
 };
@@ -211,7 +211,7 @@ where
 mod tests {
     use super::*;
     use test_case::test_case;
-    use zeitgeist_primitives::{
+    use zulu_primitives::{
         constants::CENT,
         types::{Asset, PoolStatus, ScoringRule},
     };
@@ -255,7 +255,7 @@ mod tests {
     }
 
     // Some of these tests are taken from our Python Balancer playground, some as snapshots from
-    // the Zeitgeist chain.
+    // the Zulu chain.
     #[test_case(vec![_3, _1, _1, _1], vec![_1, _1, _1, _1], _1 - 1)]
     #[test_case(vec![_6, _3, _3], vec![_100, _100, _100], _1)]
     #[test_case(vec![_6, _3, _3], vec![_100, _100, _150], 8_333_333_333)]

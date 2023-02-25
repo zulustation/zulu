@@ -1,20 +1,20 @@
 // Copyright 2022-2023 Forecasting Technologies LTD.
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 #[cfg(feature = "parachain")]
 mod service_parachain;
@@ -22,7 +22,7 @@ mod service_parachain;
 mod service_standalone;
 
 use sp_runtime::traits::BlakeTwo256;
-use zeitgeist_primitives::types::{AccountId, Balance, Block, Index, MarketId, PoolId};
+use zulu_primitives::types::{AccountId, Balance, Block, Index, MarketId, PoolId};
 
 use super::cli::Client;
 use sc_executor::NativeExecutionDispatch;
@@ -58,33 +58,33 @@ impl sc_executor::NativeExecutionDispatch for BatteryStationExecutor {
     }
 }
 
-#[cfg(feature = "with-zeitgeist-runtime")]
-pub struct ZeitgeistExecutor;
+#[cfg(feature = "with-zulu-runtime")]
+pub struct ZuluExecutor;
 
-#[cfg(feature = "with-zeitgeist-runtime")]
-impl sc_executor::NativeExecutionDispatch for ZeitgeistExecutor {
+#[cfg(feature = "with-zulu-runtime")]
+impl sc_executor::NativeExecutionDispatch for ZuluExecutor {
     #[cfg(feature = "runtime-benchmarks")]
     type ExtendHostFunctions = frame_benchmarking::benchmarking::HostFunctions;
     #[cfg(not(feature = "runtime-benchmarks"))]
     type ExtendHostFunctions = ();
 
     fn dispatch(method: &str, data: &[u8]) -> Option<Vec<u8>> {
-        zeitgeist_runtime::api::dispatch(method, data)
+        zulu_runtime::api::dispatch(method, data)
     }
 
     fn native_version() -> sc_executor::NativeVersion {
-        zeitgeist_runtime::native_version()
+        zulu_runtime::native_version()
     }
 }
 
 /// Can be called for a `Configuration` to check if it is a configuration for
-/// the `Zeitgeist` network.
+/// the `Zulu` network.
 pub trait IdentifyVariant {
     /// Returns `true` if this is a configuration for the `Battery Station` network.
     fn is_battery_station(&self) -> bool;
 
-    /// Returns `true` if this is a configuration for the `Zeitgeist` network.
-    fn is_zeitgeist(&self) -> bool;
+    /// Returns `true` if this is a configuration for the `Zulu` network.
+    fn is_zulu(&self) -> bool;
 }
 
 impl IdentifyVariant for Box<dyn ChainSpec> {
@@ -92,8 +92,8 @@ impl IdentifyVariant for Box<dyn ChainSpec> {
         self.id().starts_with("battery_station")
     }
 
-    fn is_zeitgeist(&self) -> bool {
-        self.id().starts_with("zeitgeist")
+    fn is_zulu(&self) -> bool {
+        self.id().starts_with("zulu")
     }
 }
 
@@ -186,9 +186,9 @@ pub fn new_chain_ops(
     ServiceError,
 > {
     match &config.chain_spec {
-        #[cfg(feature = "with-zeitgeist-runtime")]
-        spec if spec.is_zeitgeist() => {
-            new_chain_ops_inner::<zeitgeist_runtime::RuntimeApi, ZeitgeistExecutor>(config)
+        #[cfg(feature = "with-zulu-runtime")]
+        spec if spec.is_zulu() => {
+            new_chain_ops_inner::<zulu_runtime::RuntimeApi, ZuluExecutor>(config)
         }
         #[cfg(feature = "with-battery-station-runtime")]
         _ => new_chain_ops_inner::<battery_station_runtime::RuntimeApi, BatteryStationExecutor>(

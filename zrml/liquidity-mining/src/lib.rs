@@ -1,20 +1,20 @@
 // Copyright 2022 Forecasting Technologies LTD.
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 #![doc = include_str!("../README.md")]
 #![cfg_attr(not(feature = "std"), no_std)]
@@ -46,7 +46,7 @@ mod pallet {
             calculate_average_blocks_of_a_time_period, calculate_perthousand,
             calculate_perthousand_value,
         },
-        weights::WeightInfoZeitgeist,
+        weights::WeightInfoZulu,
         LiquidityMiningPalletApi,
     };
     use alloc::vec::Vec;
@@ -70,7 +70,7 @@ mod pallet {
         traits::{AccountIdConversion, Saturating},
         TransactionOutcome,
     };
-    use zeitgeist_primitives::{
+    use zulu_primitives::{
         traits::MarketId,
         types::{MarketPeriod, MaxRuntimeUsize},
     };
@@ -114,7 +114,7 @@ mod pallet {
         #[pallet::constant]
         type PalletId: Get<PalletId>;
 
-        type WeightInfo: WeightInfoZeitgeist;
+        type WeightInfo: WeightInfoZulu;
     }
 
     #[pallet::event]

@@ -1,20 +1,20 @@
 // Copyright 2022-2023 Forecasting Technologies Ltd.
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 #![allow(
     // Auto-generated code is a no man's land
@@ -35,7 +35,7 @@ use frame_support::{
 use frame_system::RawOrigin;
 use orml_traits::MultiCurrency;
 use sp_runtime::traits::{One, SaturatedConversion, Saturating, Zero};
-use zeitgeist_primitives::{
+use zulu_primitives::{
     constants::mock::{MaxSwapFee, MinLiquidity, MinWeight, BASE, MILLISECS_PER_BLOCK},
     traits::Swaps,
     types::{
@@ -62,7 +62,7 @@ fn create_market_common_parameters<T: Config>(
     &'static str,
 > {
     let caller: T::AccountId = whitelisted_caller();
-    T::AssetManager::deposit(Asset::Ztg, &caller, (100 * MinLiquidity::get()).saturated_into())
+    T::AssetManager::deposit(Asset::Zul, &caller, (100 * MinLiquidity::get()).saturated_into())
         .unwrap();
     let oracle = caller.clone();
     let deadlines = Deadlines::<T::BlockNumber> {
@@ -91,7 +91,7 @@ fn create_market_common<T: Config + pallet_timestamp::Config>(
     let (caller, oracle, deadlines, metadata, creation) =
         create_market_common_parameters::<T>(permission)?;
     Call::<T>::create_market {
-        base_asset: Asset::Ztg,
+        base_asset: Asset::Zul,
         oracle,
         period,
         deadlines,
@@ -252,7 +252,7 @@ benchmarks! {
             let outcome = OutcomeReport::Categorical((i % a).saturated_into());
             let disputor = account("disputor", i, 0);
             let dispute_bond = crate::pallet::default_dispute_bond::<T>(i as usize);
-            T::AssetManager::deposit(Asset::Ztg, &disputor, dispute_bond)?;
+            T::AssetManager::deposit(Asset::Zul, &disputor, dispute_bond)?;
             let _ = Pallet::<T>::dispute(RawOrigin::Signed(disputor).into(), market_id, outcome)?;
         }
 
@@ -471,7 +471,7 @@ benchmarks! {
         let disputor = account("disputor", 1, 0);
         let dispute_bond = crate::pallet::default_dispute_bond::<T>(0_usize);
         T::AssetManager::deposit(
-            Asset::Ztg,
+            Asset::Zul,
             &disputor,
             dispute_bond,
         )?;
@@ -525,7 +525,7 @@ benchmarks! {
         let disputor = account("disputor", 1, 0);
         let dispute_bond = crate::pallet::default_dispute_bond::<T>(0_usize);
         T::AssetManager::deposit(
-            Asset::Ztg,
+            Asset::Zul,
             &disputor,
             dispute_bond,
         )?;
@@ -618,7 +618,7 @@ benchmarks! {
         }
     }: _(
             RawOrigin::Signed(caller),
-            Asset::Ztg,
+            Asset::Zul,
             oracle,
             period,
             deadlines,
@@ -641,7 +641,7 @@ benchmarks! {
         let (caller, oracle, deadlines, metadata, creation) =
             create_market_common_parameters::<T>(MarketCreation::Advised)?;
         Call::<T>::create_market {
-            base_asset: Asset::Ztg,
+            base_asset: Asset::Zul,
             oracle: oracle.clone(),
             period: period.clone(),
             deadlines,
@@ -672,7 +672,7 @@ benchmarks! {
         };
     }: _(
             RawOrigin::Signed(caller),
-            Asset::Ztg,
+            Asset::Zul,
             market_id,
             oracle,
             period,
@@ -809,7 +809,7 @@ benchmarks! {
             // with the start_global_dispute execution block
             <frame_system::Pallet<T>>::set_block_number(i.saturated_into());
             let disputor: T::AccountId = account("Disputor", i, 0);
-            T::AssetManager::deposit(Asset::Ztg, &disputor, (u128::MAX).saturated_into())?;
+            T::AssetManager::deposit(Asset::Zul, &disputor, (u128::MAX).saturated_into())?;
             let _ = Call::<T>::dispute {
                 market_id,
                 outcome: OutcomeReport::Scalar(i.into()),

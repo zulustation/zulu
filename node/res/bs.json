@@ -1,5 +1,5 @@
 {
-  "name": "Zeitgeist Battery Station",
+  "name": "Zulu Battery Station",
   "id": "battery_station",
   "chainType": "Live",
   "bootNodes": [
@@ -12,7 +12,7 @@
       0
     ],
     [
-      "/dns/telemetry.zeitgeist.pm/tcp/443/x-parity-wss/%2Fsubmit%2F",
+      "/dns/telemetry.zulu.pm/tcp/443/x-parity-wss/%2Fsubmit%2F",
       0
     ]
   ],

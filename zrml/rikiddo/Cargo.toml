@@ -1,18 +1,18 @@
 [dependencies]
 arbitrary = { version = "1.0.1", features = ["derive"], optional = true }
 cfg-if = { version = "1.0.0", default-features = false }
-frame-support = { branch = "moonbeam-polkadot-v0.9.29", default-features = false, git = "https://github.com/zeitgeistpm/substrate" }
-frame-system = { branch = "moonbeam-polkadot-v0.9.29", default-features = false, git = "https://github.com/zeitgeistpm/substrate" }
+frame-support = { branch = "moonbeam-polkadot-v0.9.29", default-features = false, git = "https://github.com/zulustation/substrate" }
+frame-system = { branch = "moonbeam-polkadot-v0.9.29", default-features = false, git = "https://github.com/zulustation/substrate" }
 hashbrown = { default-features = true, version = "0.11" }
-pallet-balances = { branch = "moonbeam-polkadot-v0.9.29", git = "https://github.com/zeitgeistpm/substrate", optional = true }
-pallet-timestamp = { branch = "moonbeam-polkadot-v0.9.29", git = "https://github.com/zeitgeistpm/substrate", optional = true }
+pallet-balances = { branch = "moonbeam-polkadot-v0.9.29", git = "https://github.com/zulustation/substrate", optional = true }
+pallet-timestamp = { branch = "moonbeam-polkadot-v0.9.29", git = "https://github.com/zulustation/substrate", optional = true }
 parity-scale-codec = { default-features = false, features = ["derive", "max-encoded-len"], version = "3.0.0" }
 scale-info = { version = "2.1.1", default-features = false, features = ["derive"] }
-sp-core = { branch = "moonbeam-polkadot-v0.9.29", default-features = false, git = "https://github.com/zeitgeistpm/substrate" }
-sp-io = { branch = "moonbeam-polkadot-v0.9.29", git = "https://github.com/zeitgeistpm/substrate", optional = true }
-sp-runtime = { branch = "moonbeam-polkadot-v0.9.29", default-features = false, git = "https://github.com/zeitgeistpm/substrate" }
+sp-core = { branch = "moonbeam-polkadot-v0.9.29", default-features = false, git = "https://github.com/zulustation/substrate" }
+sp-io = { branch = "moonbeam-polkadot-v0.9.29", git = "https://github.com/zulustation/substrate", optional = true }
+sp-runtime = { branch = "moonbeam-polkadot-v0.9.29", default-features = false, git = "https://github.com/zulustation/substrate" }
 substrate-fixed = { default-features = false, features = ["serde"], git = "https://github.com/encointer/substrate-fixed" }
-zeitgeist-primitives = { default-features = false, path = "../../primitives" }
+zulu-primitives = { default-features = false, path = "../../primitives" }
 
 [dev-dependencies]
 zrml-rikiddo = { features = ["mock"], path = "." }
@@ -23,7 +23,7 @@ mock = [
     "pallet-balances",
     "pallet-timestamp",
     "sp-io",
-    "zeitgeist-primitives/mock",
+    "zulu-primitives/mock",
 ]
 std = [
     "frame-support/std",
@@ -32,14 +32,14 @@ std = [
     "sp-core/std",
     "sp-runtime/std",
     "substrate-fixed/std",
-    "zeitgeist-primitives/std",
+    "zulu-primitives/std",
 ]
 try-runtime = [
     "frame-support/try-runtime",
 ]
 
 [package]
-authors = ["Zeitgeist PM <contact@zeitgeist.pm>"]
+authors = ["Zulu PM <contact@zulu.pm>"]
 edition = "2021"
 name = "zrml-rikiddo"
 version = "0.3.8"

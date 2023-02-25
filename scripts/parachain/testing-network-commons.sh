@@ -82,7 +82,7 @@ launch_validator() {
 
     sudo docker run \
         -d \
-        -v $DATA_DIR/relay-chain-spec.json:/zeitgeist/relay-chain-spec.json \
+        -v $DATA_DIR/relay-chain-spec.json:/zulu/relay-chain-spec.json \
         -v $DATA_DIR/$container_name:/data \
         --name=$container_name \
         --network=host \
@@ -90,7 +90,7 @@ launch_validator() {
         $VALIDATOR_IMAGE \
         --allow-private-ipv4 \
         --base-path=/data \
-        --chain=/zeitgeist/relay-chain-spec.json \
+        --chain=/zulu/relay-chain-spec.json \
         --discover-local \
         --name=$container_name \
         $validator_extra_params
@@ -139,13 +139,13 @@ sudo docker run \
     $PARACHAIN_IMAGE \
     export-genesis-state \
     --chain=$PARACHAIN_CHAIN \
-    --parachain-id=$PARACHAIN_ID > $DATA_DIR/zeitgeist-genesis-state
+    --parachain-id=$PARACHAIN_ID > $DATA_DIR/zulu-genesis-state
 
 sudo docker run \
     --rm \
     $PARACHAIN_IMAGE \
     export-genesis-wasm \
-    --chain=$PARACHAIN_CHAIN > $DATA_DIR/zeitgeist-genesis-wasm
+    --chain=$PARACHAIN_CHAIN > $DATA_DIR/zulu-genesis-wasm
 
 launch_parachain() {
     local container_name=$1
@@ -154,14 +154,14 @@ launch_parachain() {
 
     sudo docker run \
         -d \
-        -v $DATA_DIR/$container_name:/zeitgeist/data \
-        -v $DATA_DIR/relay-chain-spec.json:/zeitgeist/relay-chain-spec.json \
+        -v $DATA_DIR/$container_name:/zulu/data \
+        -v $DATA_DIR/relay-chain-spec.json:/zulu/relay-chain-spec.json \
         --name=$container_name \
         --restart=always \
         --network=host \
         $PARACHAIN_IMAGE \
         --allow-private-ipv4 \
-        --base-path=/zeitgeist/data \
+        --base-path=/zulu/data \
         --chain=$PARACHAIN_CHAIN \
         --discover-local \
         --parachain-id=$PARACHAIN_ID \
@@ -170,7 +170,7 @@ launch_parachain() {
         --allow-private-ipv4 \
         --bootnodes=$VALIDATOR_FIRST_BOOTNODE_ADDR \
         --bootnodes=$VALIDATOR_SECOND_BOOTNODE_ADDR \
-        --chain=/zeitgeist/relay-chain-spec.json \
+        --chain=/zulu/relay-chain-spec.json \
         --discover-local \
         --execution=wasm \
         $relaychain_extra_params

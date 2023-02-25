@@ -1,21 +1,21 @@
 // Copyright 2022-2023 Forecasting Technologies LTD.
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 // Copyright 2019-2020 Parity Technologies (UK) Ltd.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 //
 // This file incorporates work covered by the following copyright and
 // permission notice:
@@ -305,7 +305,7 @@ macro_rules! create_runtime {
                 AssetManager: orml_currencies::{Call, Pallet, Storage} = 40,
                 Tokens: orml_tokens::{Config<T>, Event<T>, Pallet, Storage} = 41,
 
-                // Zeitgeist
+                // Zulu
                 MarketCommons: zrml_market_commons::{Pallet, Storage} = 50,
                 Authorized: zrml_authorized::{Call, Event<T>, Pallet, Storage} = 51,
                 Court: zrml_court::{Call, Event<T>, Pallet, Storage} = 52,
@@ -1570,7 +1570,7 @@ macro_rules! create_common_benchmark_logic {
                     AccountId, Amount, AssetManager, Balance, CurrencyId, ExistentialDeposit,
                     GetNativeCurrencyId, Runtime
                 };
-                use zeitgeist_primitives::{
+                use zulu_primitives::{
                     constants::BASE,
                     types::Asset,
                 };
@@ -1690,7 +1690,7 @@ macro_rules! create_common_benchmark_logic {
                 use frame_system::RawOrigin;
                 use orml_benchmarking::runtime_benchmarks;
                 use orml_traits::MultiCurrency;
-                use zeitgeist_primitives::{constants::BASE, types::Asset};
+                use zulu_primitives::{constants::BASE, types::Asset};
 
                 const SEED: u32 = 0;
                 const ASSET: CurrencyId = Asset::CategoricalOutcome(0, 0);

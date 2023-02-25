@@ -1,23 +1,23 @@
 // Copyright 2022-2023 Forecasting Technologies LTD.
 // Copyright 2021-2022 Centrifuge GmbH (centrifuge.io).
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 use crate::{
-    parameters::ZeitgeistTreasuryAccount, xcm_config::config::zeitgeist, AccountId, CurrencyId,
+    parameters::ZuluTreasuryAccount, xcm_config::config::zulu, AccountId, CurrencyId,
     DmpQueue, Origin, Runtime, XcmpQueue,
 };
 use frame_support::{traits::GenesisBuild, weights::Weight};
@@ -25,7 +25,7 @@ use polkadot_primitives::v2::{BlockNumber, MAX_CODE_SIZE, MAX_POV_SIZE};
 use polkadot_runtime_parachains::configuration::HostConfiguration;
 use xcm_emulator::{decl_test_network, decl_test_parachain, decl_test_relay_chain};
 
-use super::setup::{ksm, ztg, ExtBuilder, ALICE, FOREIGN_PARENT_ID, PARA_ID_SIBLING};
+use super::setup::{ksm, zul, ExtBuilder, ALICE, FOREIGN_PARENT_ID, PARA_ID_SIBLING};
 
 decl_test_relay_chain! {
     pub struct KusamaNet {
@@ -36,12 +36,12 @@ decl_test_relay_chain! {
 }
 
 decl_test_parachain! {
-    pub struct Zeitgeist {
+    pub struct Zulu {
         Runtime = Runtime,
         Origin = Origin,
         XcmpMessageHandler = XcmpQueue,
         DmpMessageHandler = DmpQueue,
-        new_ext = para_ext(zeitgeist::ID),
+        new_ext = para_ext(zulu::ID),
     }
 }
 
@@ -62,8 +62,8 @@ decl_test_network! {
             // N.B: Ideally, we could use the defined para id constants but doing so
             // fails with: "error: arbitrary expressions aren't allowed in patterns"
 
-            // Be sure to use `xcm_config::config::zeitgeist::ID`
-            (2101, Zeitgeist),
+            // Be sure to use `xcm_config::config::zulu::ID`
+            (2101, Zulu),
             // Be sure to use `PARA_ID_SIBLING`
             (3000, Sibling),
         ],
@@ -101,9 +101,9 @@ pub(super) fn relay_ext() -> sp_io::TestExternalities {
 pub(super) fn para_ext(parachain_id: u32) -> sp_io::TestExternalities {
     ExtBuilder::default()
         .set_balances(vec![
-            (AccountId::from(ALICE), CurrencyId::Ztg, ztg(10)),
+            (AccountId::from(ALICE), CurrencyId::Zul, zul(10)),
             (AccountId::from(ALICE), FOREIGN_PARENT_ID, ksm(10)),
-            (ZeitgeistTreasuryAccount::get(), FOREIGN_PARENT_ID, ksm(1)),
+            (ZuluTreasuryAccount::get(), FOREIGN_PARENT_ID, ksm(1)),
         ])
         .set_parachain_id(parachain_id)
         .build()

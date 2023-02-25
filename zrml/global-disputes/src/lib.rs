@@ -1,19 +1,19 @@
 // Copyright 2022 Forecasting Technologies LTD.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 #![doc = include_str!("../README.md")]
 #![cfg_attr(not(feature = "std"), no_std)]
@@ -30,7 +30,7 @@ pub use pallet::*;
 
 #[frame_support::pallet]
 mod pallet {
-    use crate::{types::*, weights::WeightInfoZeitgeist, GlobalDisputesPalletApi};
+    use crate::{types::*, weights::WeightInfoZulu, GlobalDisputesPalletApi};
     use core::marker::PhantomData;
     use frame_support::{
         ensure, log,
@@ -50,7 +50,7 @@ mod pallet {
         DispatchResult,
     };
     use sp_std::{vec, vec::Vec};
-    use zeitgeist_primitives::types::OutcomeReport;
+    use zulu_primitives::types::OutcomeReport;
     use zrml_market_commons::MarketCommonsPalletApi;
 
     #[pallet::config]
@@ -98,7 +98,7 @@ mod pallet {
         #[pallet::constant]
         type VotingOutcomeFee: Get<BalanceOf<Self>>;
 
-        type WeightInfo: WeightInfoZeitgeist;
+        type WeightInfo: WeightInfoZulu;
     }
 
     pub(crate) type BalanceOf<T> = <<T as Config>::Currency as Currency<AccountIdOf<T>>>::Balance;

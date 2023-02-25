@@ -9,8 +9,8 @@ set -euxo pipefail
 check_package_with_feature runtime/battery-station std
 check_package_with_feature runtime/battery-station std,runtime-benchmarks
 
-check_package_with_feature runtime/zeitgeist std
-check_package_with_feature runtime/zeitgeist std,runtime-benchmarks
+check_package_with_feature runtime/zulu std
+check_package_with_feature runtime/zulu std,runtime-benchmarks
 
 check_package_with_feature node default
 check_package_with_feature node default,runtime-benchmarks

@@ -3,8 +3,8 @@
   "id": "rococo_battery_station_relay_testnet",
   "chainType": "Live",
   "bootNodes": [
-    "/dns/bsr.zeitgeist.pm/tcp/30338/p2p/12D3KooWRuwKV1yt6fqPL6hsfPvJQ28pqmmTxNSDxEC4eLKagzjK",
-    "/dns/bsr.zeitgeist.pm/tcp/30338/ws/p2p/12D3KooWRuwKV1yt6fqPL6hsfPvJQ28pqmmTxNSDxEC4eLKagzjK"
+    "/dns/bsr.zulu.pm/tcp/30338/p2p/12D3KooWRuwKV1yt6fqPL6hsfPvJQ28pqmmTxNSDxEC4eLKagzjK",
+    "/dns/bsr.zulu.pm/tcp/30338/ws/p2p/12D3KooWRuwKV1yt6fqPL6hsfPvJQ28pqmmTxNSDxEC4eLKagzjK"
   ],
   "telemetryEndpoints": [
     [
@@ -12,7 +12,7 @@
       0
     ],
     [
-      "/dns/telemetry.zeitgeist.pm/tcp/443/x-parity-wss/%2Fsubmit%2F",
+      "/dns/telemetry.zulu.pm/tcp/443/x-parity-wss/%2Fsubmit%2F",
       0
     ]
   ],

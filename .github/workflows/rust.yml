@@ -100,7 +100,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ${{ runner.temp }}/zeitgeist-test-coverage.lcov
+          files: ${{ runner.temp }}/zulu-test-coverage.lcov
           fail_ci_if_error: true
           flags: tests
           verbose: true

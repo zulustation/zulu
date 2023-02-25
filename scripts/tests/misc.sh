@@ -18,7 +18,7 @@ test_package_with_feature primitives std $rustflags
 
 no_runtime_benchmarks=('court' 'market-commons' 'rikiddo')
 
-cargo test --package zeitgeist-runtime --lib -- --nocapture
+cargo test --package zulu-runtime --lib -- --nocapture
 
 # TODO(#848): Delete when feature "with-global-dispute" is removed
 cargo test -p zrml-prediction-markets --features with-global-disputes,parachain
@@ -36,5 +36,5 @@ do
 done
 
 if [[ ! -z "$rustflags" ]]; then
-    grcov . --binary-path ./target/debug/deps/ -s . -t lcov --branch --ignore-not-existing --llvm --ignore '../*' --ignore "/*" -o $RUNNER_TEMP/zeitgeist-test-coverage.lcov
+    grcov . --binary-path ./target/debug/deps/ -s . -t lcov --branch --ignore-not-existing --llvm --ignore '../*' --ignore "/*" -o $RUNNER_TEMP/zulu-test-coverage.lcov
 fi

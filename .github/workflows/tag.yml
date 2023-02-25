@@ -23,7 +23,7 @@ jobs:
         uses: Swatinem/rust-cache@v2
 
       - run: make try-runtime-upgrade-battery-station 
-  try_runtime_zeitgeist:
+  try_runtime_zulu:
     name: Test Try Runtime
     runs-on: ubuntu-latest
     steps:
@@ -39,4 +39,4 @@ jobs:
       - name: Cache Dependencies
         uses: Swatinem/rust-cache@v2
 
-      - run: make try-runtime-upgrade-zeitgeist 
+      - run: make try-runtime-upgrade-zulu 

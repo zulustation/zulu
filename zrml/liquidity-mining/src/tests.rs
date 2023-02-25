@@ -1,20 +1,20 @@
 // Copyright 2022-2023 Forecasting Technologies LTD.
-// Copyright 2021-2022 Zeitgeist PM LLC.
+// Copyright 2021-2022 Zulu PM LLC.
 //
-// This file is part of Zeitgeist.
+// This file is part of Zulu.
 //
-// Zeitgeist is free software: you can redistribute it and/or modify it
+// Zulu is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
 // Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
-// Zeitgeist is distributed in the hope that it will be useful, but
+// Zulu is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Zeitgeist. If not, see <https://www.gnu.org/licenses/>.
+// along with Zulu. If not, see <https://www.gnu.org/licenses/>.
 
 #![cfg(test)]
 
@@ -31,7 +31,7 @@ use frame_support::{
     traits::{Currency, OnFinalize},
 };
 use frame_system::RawOrigin;
-use zeitgeist_primitives::types::{
+use zulu_primitives::types::{
     Asset, Deadlines, Market, MarketBonds, MarketCreation, MarketDisputeMechanism, MarketPeriod,
     MarketStatus, MarketType, ScoringRule,
 };
@@ -203,7 +203,7 @@ fn create_default_market(market_id: u128, period: Range<u64>) {
     Markets::<Runtime>::insert(
         market_id,
         Market {
-            base_asset: Asset::Ztg,
+            base_asset: Asset::Zul,
             creation: MarketCreation::Permissionless,
             creator_fee: 0,
             creator: 0,
